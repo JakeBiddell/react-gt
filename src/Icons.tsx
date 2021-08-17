@@ -1,0 +1,30 @@
+import React from 'react';
+
+const styles: React.CSSProperties = {
+    fill: 'currentColor',
+    width: '1em',
+    height: '1em',
+    display: 'inline-block',
+    fontSize: '1.5rem',
+    transition: 'fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+    flexShrink: 0,
+    userSelect: 'none',
+};
+
+const Icon = ({ path }: { path: string }) => (
+    <svg style={styles}>
+        <path d={path} />
+    </svg>
+);
+
+export const LeftArrow = () => (
+    <Icon path="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+);
+
+export const RightArrow = () => (
+    <Icon path="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z" />
+);
+
+export const Close = () => (
+    <Icon path="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+);
