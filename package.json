@@ -1,6 +1,6 @@
 {
     "name": "reactgt",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "description": "",
     "main": "./build/index.js",
     "typings": "./typings/index.d.ts",
@@ -9,7 +9,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Utility-Point/ReactGT.git"
+        "url": "git+ssh://git@github.com:Utility-Point/ReactGT.git"
     },
     "author": "Jake Biddell <Jake.Biddell@UtilityPoint.co.uk>",
     "license": "ISC",
