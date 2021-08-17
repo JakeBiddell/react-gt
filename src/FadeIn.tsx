@@ -11,9 +11,9 @@ const FadeIn = ({ children, style }: { children?: JSX.Element; style?: React.CSS
         <div
             style={{
                 ...style,
-                transition: style.transition
+                transition: style?.transition
                     ? `${style.transition}, opacity 0.4s ease`
-                    : `opacity 0.4s`,
+                    : `opacity 0.4s ease`,
                 opacity: hidden ? 0 : 1,
             }}
         >
