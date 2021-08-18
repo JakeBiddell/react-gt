@@ -33,10 +33,21 @@ const Step = React.memo(
             element.scrollIntoView(scrollOptions);
             adjustBoundaries();
         }, [element]);
+        const keyDownEventHandler = useCallback(
+            (event: KeyboardEvent) => {
+                if (event.code === 'ArrowLeft' && stepIndex !== 0) {
+                    changeStep(stepIndex - 1);
+                } else if (event.code === 'ArrowRight' && stepIndex !== allSteps.length - 1) {
+                    changeStep(stepIndex + 1);
+                }
+            },
+            [stepIndex, changeStep, allSteps],
+        );
         useEffect(() => {
             scrollToElement();
             window.addEventListener('resize', adjustBoundaries);
             window.addEventListener('scroll', adjustBoundaries);
+            window.addEventListener('keydown', keyDownEventHandler);
 
             const interval = setInterval(() => window.dispatchEvent(new Event('resize')), 250);
 
@@ -46,6 +57,7 @@ const Step = React.memo(
                 clearTimeout(timeout);
                 window.removeEventListener('resize', adjustBoundaries);
                 window.removeEventListener('scroll', adjustBoundaries);
+                window.removeEventListener('keydown', keyDownEventHandler);
             };
         }, [element]);
         return (
