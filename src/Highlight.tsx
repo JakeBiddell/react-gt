@@ -5,8 +5,8 @@ const speed = '0.4';
 
 const Arrow = ({ x, y, rotation }: { x: number; y: number; rotation: number }) => (
     <svg
-        width="100vw"
-        height="100vh"
+        width="1000vw"
+        height="1000vh"
         background-color="red"
         style={{
             left: 0,
@@ -38,7 +38,7 @@ const Highlight = ({ boundaries: { top, left, height, width } }: { boundaries: D
             if (top < -height) {
                 return <Arrow x={-(left + width / 2 - 50)} y={0} rotation={90} />;
             }
-            if (top > window.innerHeight + window.screenX - 10) {
+            if (top > window.innerHeight + window.scrollY - 10) {
                 return (
                     <Arrow
                         x={left + width / 2 - 50}
