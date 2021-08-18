@@ -1,3 +1,6 @@
-declare const styles = "\n.__react-gt__dot {\n    cursor: pointer;\n    display: contents;\n    width: 10px;\n    height: 10px;\n    background-color: inherit;\n    border: 1px solid #757575;\n    border-radius: 50%;\n    margin-right: 7px;\n    overflow: hidden;\n}\n.__react-gt__dot:hover {\n    background-color: #757575;\n}\n.__react-gt__dot-selected {\n    cursor: default;\n    background-color: #00c19f;\n    border: 1px solid #00c19f;\n}\n.__react-gt__dot-selected:hover {\n    background-color: #00c19f;\n}\n";
+export declare const reactGTSelector = "__react-gt__dot";
+export declare const dotclass: string;
+export declare const selectedDotClass: string;
+declare const styles: string;
 export default styles;
 //# sourceMappingURL=styles.d.ts.map

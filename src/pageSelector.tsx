@@ -1,9 +1,16 @@
 import React, { MouseEventHandler, useState } from 'react';
 import Hover from './Hover';
 import { LeftArrow, RightArrow } from './Icons';
+import { dotclass, selectedDotClass } from './styles';
 
 const DotButton = ({ selected, onClick }: { selected: boolean; onClick: MouseEventHandler }) => (
-    <button type="button" className="__react-gt__dot" onClick={onClick} />
+    <button
+        type="button"
+        className={selected ? `${dotclass} ${selectedDotClass}` : dotclass}
+        onClick={onClick}
+    >
+        <div />
+    </button>
 );
 
 type ButtonType = { direction: -1 | 1; disabled: boolean; onClick: MouseEventHandler };
