@@ -7,7 +7,7 @@ const speed = '0.4';
 type ArrowProps = { x: number; y: number; rotation: number; scrollToElement: () => void };
 const Arrow = ({ x, y, rotation, scrollToElement }: ArrowProps) => {
     const ref = useRef(undefined as SVGPathElement);
-    const { height, width, top, bottom } = ref.current?.getBoundingClientRect();
+    const { height, width, top, bottom } = ref.current?.getBoundingClientRect() ?? {};
     return (
         <>
             <div
