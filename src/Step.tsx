@@ -2,10 +2,11 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { ReactGTStep } from './types';
 import Highlight from './Highlight';
 import Modal from './Modal';
+import { useCallback } from 'react';
 
 const $ = (query: string) => document.querySelector(query);
 
-const scrollOptions = { behavior: 'smooth', block: 'nearest' } as ScrollIntoViewOptions;
+const scrollOptions = { behavior: 'smooth', block: 'center' } as ScrollIntoViewOptions;
 
 type Props = Partial<ReactGTStep> & {
     stepIndex: number;
@@ -24,10 +25,16 @@ const Step = React.memo(
         renderedContent,
     }: Props & { element: Element; renderedContent: any }) => {
         const [boundaries, setBoundaries] = useState(() => element.getBoundingClientRect());
-        useEffect(() => {
+        const adjustBoundaries = useCallback(
+            () => setBoundaries(element.getBoundingClientRect()),
+            [element],
+        );
+        const scrollToElement = useCallback(() => {
             element.scrollIntoView(scrollOptions);
-            const adjustBoundaries = () => setBoundaries(element.getBoundingClientRect());
             adjustBoundaries();
+        }, [element]);
+        useEffect(() => {
+            scrollToElement();
             window.addEventListener('resize', adjustBoundaries);
             window.addEventListener('scroll', adjustBoundaries);
 
@@ -43,7 +50,7 @@ const Step = React.memo(
         }, [element]);
         return (
             <>
-                <Highlight boundaries={boundaries} />
+                <Highlight scrollToElement={scrollToElement} boundaries={boundaries} />
                 <Modal
                     boundaries={boundaries}
                     renderedContent={renderedContent}

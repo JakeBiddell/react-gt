@@ -36,7 +36,7 @@ const ReactGT = ({
                         right: 0,
                         left: 0,
                         bottom: 0,
-                        zIndex: 999997,
+                        zIndex: 999996,
                     }}
                     onClick={close}
                 />
