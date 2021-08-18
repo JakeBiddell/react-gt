@@ -13,19 +13,21 @@ const DotButton = ({ selected, onClick }: { selected: boolean; onClick: MouseEve
         }}
         onClick={onClick}
     >
-        <Hover style={{ backgroundColor: selected ? '#00c19f' : '#757575' }}>
-            <div
-                style={{
-                    width: '10px',
-                    height: '10px',
-                    backgroundColor: selected ? '#00c19f' : undefined,
-                    border: `1px solid ${selected ? '#00c19f' : '#757575'}`,
-                    borderRadius: '50%',
-                    marginRight: '7px',
-                    overflow: 'hidden',
-                }}
-            />
-        </Hover>
+        <div
+            style={{
+                width: '10px',
+                height: '10px',
+                backgroundColor: selected ? '#00c19f' : undefined,
+                border: `1px solid ${selected ? '#00c19f' : '#757575'}`,
+                borderRadius: '50%',
+                marginRight: '7px',
+                overflow: 'hidden',
+            }}
+        >
+            <Hover style={{ backgroundColor: selected ? '#00c19f' : '#757575' }}>
+                <div style={{ width: '10px', height: '10px' }} />
+            </Hover>
+        </div>
     </button>
 );
 
