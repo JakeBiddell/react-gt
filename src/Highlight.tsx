@@ -40,17 +40,18 @@ const Arrow = ({ x, y, rotation, scrollToElement }: ArrowProps) => {
                 <defs>
                     <mask id="hole">
                         <rect width="100%" height="100%" fill="rgba(255, 255, 255, .8)" />
-                        <path
+                        <path // this is the path that creates the arrow shape
                             ref={ref}
                             x="50"
-                            transform={`rotate(${rotation} 50 50), translate(${y} ${x}), scale(5 5)`}
-                            transform-origin="4 4"
+                            transform={`rotate(${rotation} 50 50), translate(${y} ${x}), scale(5 5)`} // transform the arrow to be in the correct position
+                            transform-origin="4 4" // offset origin to make roation easier
                             d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
                         />
                     </mask>
                 </defs>
 
-                <rect id="donut" x="0" y="0" width="100%" height="100%" mask="url(#hole)" />
+                {/* create a rectangle that covers 100% of the screen. use the hole mask to remove the arrow shape from the rectangle */}
+                <rect x="0" y="0" width="100%" height="100%" mask="url(#hole)" />
             </svg>
         </>
     );
@@ -63,43 +64,47 @@ const Highlight = ({
 }: HighLightProps) => (
     <FadeIn style={{ zIndex: 999997, position: 'absolute' }}>
         {(() => {
+            // if the element is above the client view show the up arrrow at the top of the screen
             if (top < -height) {
                 return (
-                    <Arrow
+                    <Arrow // Up Arrow
                         scrollToElement={scrollToElement}
-                        x={-(left + width / 2 - 50)}
-                        y={0}
-                        rotation={90}
+                        x={-(left + width / 2 - 60)} // align horizontally with element
+                        y={0} // align to the bottom
+                        rotation={90} // turn the arrow to point up
                     />
                 );
             }
+            // if the element is beneath the client view show the down arrrow at the bottom of the screen
             if (top > window.innerHeight - 10) {
                 return (
-                    <Arrow
+                    <Arrow // Down Arrow
                         scrollToElement={scrollToElement}
-                        x={left + width / 2 - 50}
-                        y={-(window.innerHeight - 120)}
-                        rotation={270}
+                        x={left + width / 2 - 60} // align horizontally with element
+                        y={-(window.innerHeight - 120)} // align to the top
+                        rotation={270} // turn the arrow to point down
                     />
                 );
             }
+            // if the element is right of the client view show the right arrow to the right of the screen
             if (left > window.innerWidth - 10) {
                 return (
-                    <Arrow
+                    <Arrow // Right Arrow
                         scrollToElement={scrollToElement}
-                        x={-(top + height / 2 - 65)}
-                        y={-(window.innerWidth - 120)}
-                        rotation={180}
+                        x={-(top + height / 2 - 60)} // align vertically with element
+                        y={-(window.innerWidth - 120)} // align to the right
+                        rotation={180} // turn the arrow to point right
                     />
                 );
             }
+            // if the element is left of the client view show the left arrow to the left of the screen
             if (left < -width) {
                 return (
-                    <Arrow
+                    <Arrow // Left Arrow
                         scrollToElement={scrollToElement}
-                        x={top + height / 2 - 50}
-                        y={0}
-                        rotation={0}
+                        x={top + height / 2 - 60} // align vertically with element
+                        y={0} // align to the left
+                        rotation={0} // turn the arrow to point left
                     />
                 );
             }
