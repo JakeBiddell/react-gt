@@ -33,7 +33,7 @@ const Arrow = ({ x, y, rotation }: { x: number; y: number; rotation: number }) =
 );
 
 const Highlight = ({ boundaries: { top, left, height, width } }: { boundaries: DOMRect }) => (
-    <FadeIn style={{ zIndex: 999998 }}>
+    <FadeIn style={{ zIndex: 999998, position: 'absolute' }}>
         {(() => {
             if (top < -height) {
                 return <Arrow x={-(left + width / 2 - 50)} y={0} rotation={90} />;
