@@ -1,36 +1,42 @@
 import React from 'react';
+import { useRef } from 'react';
 import FadeIn from './FadeIn';
 
 const speed = '0.4';
 
-const Arrow = ({ x, y, rotation }: { x: number; y: number; rotation: number }) => (
-    <svg
-        width="1000vw"
-        height="1000vh"
-        background-color="red"
-        style={{
-            left: 0,
-            right: 0,
-            position: 'fixed',
-            transition: `transform ${speed}s ease, height ${speed}s ease, width ${speed}s ease`,
-            pointerEvents: 'none',
-        }}
-    >
-        <defs>
-            <mask id="hole">
-                <rect width="100%" height="100%" fill="rgba(255, 255, 255, .8)" />
-                <path
-                    x="50"
-                    transform={`rotate(${rotation} 50 50), translate(${y} ${x}), scale(5 5)`}
-                    transform-origin="4 4"
-                    d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
-                />
-            </mask>
-        </defs>
+const Arrow = ({ x, y, rotation }: { x: number; y: number; rotation: number }) => {
+    const ref = useRef(undefined as SVGPathElement);
+    console.log(ref.current.getBoundingClientRect());
+    return (
+        <svg
+            width="1000vw"
+            height="1000vh"
+            background-color="red"
+            style={{
+                left: 0,
+                right: 0,
+                position: 'fixed',
+                transition: `transform ${speed}s ease, height ${speed}s ease, width ${speed}s ease`,
+                pointerEvents: 'none',
+            }}
+        >
+            <defs>
+                <mask id="hole">
+                    <rect width="100%" height="100%" fill="rgba(255, 255, 255, .8)" />
+                    <path
+                        ref={ref}
+                        x="50"
+                        transform={`rotate(${rotation} 50 50), translate(${y} ${x}), scale(5 5)`}
+                        transform-origin="4 4"
+                        d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+                    />
+                </mask>
+            </defs>
 
-        <rect id="donut" x="0" y="0" width="100%" height="100%" mask="url(#hole)" />
-    </svg>
-);
+            <rect id="donut" x="0" y="0" width="100%" height="100%" mask="url(#hole)" />
+        </svg>
+    );
+};
 
 const Highlight = ({ boundaries: { top, left, height, width } }: { boundaries: DOMRect }) => (
     <FadeIn style={{ zIndex: 999998, position: 'absolute' }}>

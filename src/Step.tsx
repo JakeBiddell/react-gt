@@ -5,7 +5,7 @@ import Modal from './Modal';
 
 const $ = (query: string) => document.querySelector(query);
 
-const scrollOptions = { behavior: 'smooth', block: 'nearest' } as ScrollIntoViewOptions;
+const scrollOptions = { behavior: 'smooth', block: 'center' } as ScrollIntoViewOptions;
 
 type Props = Partial<ReactGTStep> & {
     stepIndex: number;
