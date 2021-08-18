@@ -41,7 +41,7 @@ const ChevronButton = ({ direction, disabled, onClick }: ButtonType) => (
         disabled={disabled}
         onClick={onClick}
     >
-        <Hover style={{ color: '#212121' }}>
+        <Hover style={disabled ? undefined : { color: '#212121' }}>
             {direction === -1 ? <LeftArrow /> : <RightArrow />}
         </Hover>
     </button>
