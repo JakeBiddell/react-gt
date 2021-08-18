@@ -11,7 +11,10 @@ const Arrow = ({ x, y, rotation, scrollToElement }: ArrowProps) => {
     return (
         <>
             <div
-                onClick={scrollToElement}
+                onClick={e => {
+                    scrollToElement();
+                    e.stopPropagation();
+                }}
                 style={{
                     cursor: 'pointer',
                     position: 'fixed',
