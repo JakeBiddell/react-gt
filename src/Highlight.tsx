@@ -38,7 +38,7 @@ const Highlight = ({ boundaries: { top, left, height, width } }: { boundaries: D
             if (top < -height) {
                 return <Arrow x={-(left + width / 2 - 50)} y={0} rotation={90} />;
             }
-            if (top > window.innerHeight + window.scrollY - 10) {
+            if (top > window.innerHeight + window.scrollY - height - 10) {
                 return (
                     <Arrow
                         x={left + width / 2 - 50}
@@ -47,7 +47,7 @@ const Highlight = ({ boundaries: { top, left, height, width } }: { boundaries: D
                     />
                 );
             }
-            if (left > window.innerWidth + window.scrollX - 10) {
+            if (left > window.innerWidth + window.scrollX - width - 10) {
                 return (
                     <Arrow
                         x={-(top + height / 2 - 65)}
