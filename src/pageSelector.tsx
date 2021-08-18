@@ -2,39 +2,9 @@ import React, { MouseEventHandler, useState } from 'react';
 import Hover from './Hover';
 import { LeftArrow, RightArrow } from './Icons';
 
-const DotButton = ({ selected, onClick }: { selected: boolean; onClick: MouseEventHandler }) => {
-    const [isHovering, setIsHovering] = useState(false);
-
-    return (
-        <>
-            <style>{`
-__react-gt__dot {
-    cursor: pointer;
-    display: contents;
-    width: 10px;
-    height: 10px;
-    background-color: inherit;
-    border: 1px solid #757575;
-    border-radius: 50%;
-    margin-right: 7px;
-    overflow: hidden;
-}
-__react-gt__dot:hover {
-    background-color: #757575;
-}
-__react-gt__dot-selected {
-    cursor: default;
-    background-color: #00c19f;
-    border: 1px solid #00c19f;
-}
-__react-gt__dot-selected:hover {
-    background-color: #00c19f;
-}
-`}</style>
-            <button type="button" className="__react-gt__dot" onClick={onClick} />
-        </>
-    );
-};
+const DotButton = ({ selected, onClick }: { selected: boolean; onClick: MouseEventHandler }) => (
+    <button type="button" className="__react-gt__dot" onClick={onClick} />
+);
 
 type ButtonType = { direction: -1 | 1; disabled: boolean; onClick: MouseEventHandler };
 const ChevronButton = ({ direction, disabled, onClick }: ButtonType) => (

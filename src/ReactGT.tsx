@@ -1,5 +1,6 @@
 import React, { useMemo, useCallback, useState } from 'react';
 import Step from './Step';
+import styles from './styles';
 import { ReactGTStep } from './types';
 
 const ReactGT = ({
@@ -27,6 +28,7 @@ const ReactGT = ({
 
     return (
         <>
+            <style>{styles}</style>
             {
                 // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
                 <div
