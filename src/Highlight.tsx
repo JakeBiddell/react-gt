@@ -14,6 +14,7 @@ const Arrow = ({ x, y, rotation }: { x: number; y: number; rotation: number }) =
             position: 'fixed',
             zIndex: 999998,
             transition: `transform ${speed}s ease, height ${speed}s ease, width ${speed}s ease`,
+            pointerEvents: 'none',
         }}
     >
         <defs>
