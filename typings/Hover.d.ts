@@ -1,7 +1,7 @@
 import React from 'react';
-declare const Hover: ({ style, children }: {
+declare const _default: React.MemoExoticComponent<({ style, children }: {
     style: React.CSSProperties;
     children?: React.ReactNode;
-}) => JSX.Element;
-export default Hover;
+}) => JSX.Element>;
+export default _default;
 //# sourceMappingURL=Hover.d.ts.map
