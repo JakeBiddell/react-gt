@@ -6,7 +6,7 @@ const speed = '0.4';
 
 const Arrow = ({ x, y, rotation }: { x: number; y: number; rotation: number }) => {
     const ref = useRef(undefined as SVGPathElement);
-    console.log(ref.current.getBoundingClientRect());
+    console.log(ref?.current?.getBoundingClientRect?.());
     return (
         <svg
             width="1000vw"
