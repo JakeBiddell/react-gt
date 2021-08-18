@@ -1,35 +1,32 @@
-import React, { MouseEventHandler } from 'react';
+import React, { MouseEventHandler, useState } from 'react';
 import Hover from './Hover';
 import { LeftArrow, RightArrow } from './Icons';
 
-const DotButton = ({ selected, onClick }: { selected: boolean; onClick: MouseEventHandler }) => (
-    <button
-        type="button"
-        style={{
-            backgroundColor: 'inherit',
-            border: 'none',
-            cursor: selected ? 'default' : 'pointer',
-            display: 'contents',
-        }}
-        onClick={onClick}
-    >
-        <div
-            style={{
-                width: '10px',
-                height: '10px',
-                backgroundColor: selected ? '#00c19f' : undefined,
-                border: `1px solid ${selected ? '#00c19f' : '#757575'}`,
-                borderRadius: '50%',
-                marginRight: '7px',
-                overflow: 'hidden',
-            }}
-        >
-            <Hover style={{ backgroundColor: selected ? '#00c19f' : '#757575' }}>
-                <div style={{ width: '10px', height: '10px' }} />
-            </Hover>
-        </div>
-    </button>
-);
+const DotButton = ({ selected, onClick }: { selected: boolean; onClick: MouseEventHandler }) => {
+    const [isHovering, setIsHovering] = useState(false);
+
+    return (
+        <>
+            <style>{`
+                __react-gt__dot {
+                    cursor: ${selected ? 'default' : 'pointer'};
+                    display: contents;
+                    width: 10px;
+                    height: 10px;
+                    backgroundColor: ${selected ? '#00c19f' : 'inherit'};
+                    border: 1px solid ${selected ? '#00c19f' : '#757575'};
+                    borderRadius: 50%;
+                    marginRight: 7px;
+                    overflow: hidden;
+                }
+                __react-gt__dot:hover {
+                    backgroundColor: ${selected ? '#00c19f' : '#757575'}
+                }
+            `}</style>
+            <button type="button" className="__react-gt__dot" onClick={onClick} />
+        </>
+    );
+};
 
 type ButtonType = { direction: -1 | 1; disabled: boolean; onClick: MouseEventHandler };
 const ChevronButton = ({ direction, disabled, onClick }: ButtonType) => (
