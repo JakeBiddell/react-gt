@@ -12,7 +12,6 @@ const Arrow = ({ x, y, rotation }: { x: number; y: number; rotation: number }) =
             left: 0,
             right: 0,
             position: 'fixed',
-            zIndex: 999998,
             transition: `transform ${speed}s ease, height ${speed}s ease, width ${speed}s ease`,
             pointerEvents: 'none',
         }}
@@ -34,7 +33,7 @@ const Arrow = ({ x, y, rotation }: { x: number; y: number; rotation: number }) =
 );
 
 const Highlight = ({ boundaries: { top, left, height, width } }: { boundaries: DOMRect }) => (
-    <FadeIn>
+    <FadeIn style={{ zIndex: 999998 }}>
         {(() => {
             if (top < -height) {
                 return <Arrow x={-(left + width / 2 - 50)} y={0} rotation={90} />;
@@ -71,7 +70,6 @@ const Highlight = ({ boundaries: { top, left, height, width } }: { boundaries: D
                         height: `${height + 20}px`,
                         borderRadius: '8px',
                         boxShadow: '0 0 0 calc(200vh + 200vw) rgba(0, 0, 0, .8)',
-                        zIndex: 999998,
                         transition: `transform ${speed}s ease, height ${speed}s ease, width ${speed}s ease`,
                     }}
                 />
