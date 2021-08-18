@@ -27,12 +27,12 @@ const Step = React.memo(
         const [boundaries, setBoundaries] = useState(() => element.getBoundingClientRect());
         const adjustBoundaries = useCallback(
             () => setBoundaries(element.getBoundingClientRect()),
-            [],
+            [element],
         );
         const scrollToElement = useCallback(() => {
             element.scrollIntoView(scrollOptions);
             adjustBoundaries();
-        }, []);
+        }, [element]);
         useEffect(() => {
             scrollToElement();
             window.addEventListener('resize', adjustBoundaries);
