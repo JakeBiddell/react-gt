@@ -30,6 +30,8 @@ const styleCreator = (
     alignItems = 'align-items',
     boxShadow = 'box-shadow',
     hover = ':hover',
+    center = 'center',
+    flex = 'flex',
 ) =>
     styleObjectToStyleString({
         '.__react-gt__': {
@@ -75,14 +77,14 @@ const styleCreator = (
                 },
             },
             'page-selector': {
-                [display]: 'flex',
+                [display]: flex,
                 [justifyContent]: 'space-between',
             },
             'dot-wrapper': {
-                [display]: 'flex',
+                [display]: flex,
                 [maxWidth]: '200px',
                 'flex-wrap': 'wrap',
-                [alignItems]: 'center',
+                [alignItems]: center,
             },
             'close-button': {
                 [backgroundColor]: 'transparent',
@@ -111,9 +113,9 @@ const styleCreator = (
                 [width]: '40px',
                 [height]: '40px',
                 [borderRadius]: '50%',
-                [display]: 'flex',
-                [alignItems]: 'center',
-                [justifyContent]: 'center',
+                [display]: flex,
+                [alignItems]: center,
+                [justifyContent]: center,
                 [position]: 'absolute',
                 left: '-10px',
                 top: '-10px',
@@ -145,10 +147,15 @@ const styleCreator = (
             },
             arrow: {
                 [position]: 'absolute',
-                right: 0,
-                top: 0,
+                right: -10,
+                top: -10,
+                [width]: '40px',
+                [height]: '40px',
                 [borderRadius]: '50%',
                 [backgroundColor]: primaryColor,
+                [display]: flex,
+                [justifyContent]: center,
+                [alignItems]: center,
             },
         },
     });

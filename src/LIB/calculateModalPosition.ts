@@ -71,10 +71,10 @@ const calculateModalPosition = (
         result.left = left + 10 + width / 2 - result.width / 2;
     }
     // make sticky
-    if (result.top < 0) result.top = 0;
-    if (result.bottom > window.innerHeight) result.bottom = window.innerHeight - 20;
-    if (result.left < 0) result.left = 0;
-    if (result.right > window.innerWidth) result.right = window.innerWidth - 20;
+    if (result.top < 10) result.top = 10;
+    if (result.bottom > window.innerHeight) result.bottom = window.innerHeight - 30;
+    if (result.left < 10) result.left = 10;
+    if (result.right > window.innerWidth) result.right = window.innerWidth - 30;
     return result;
 };
 
