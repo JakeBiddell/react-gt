@@ -22,7 +22,7 @@ const styleCreator = (
     cursor = 'cursor',
 ) =>
     styleObjectToStyleString({
-        '__react-gt__': {
+        '.__react-gt__': {
             dot: {
                 [cursor]: 'pointer',
                 [display]: 'contents',
