@@ -24,6 +24,8 @@ const styleCreator = (
     height = 'height',
     borderRadius = 'border-radius',
     position = 'position',
+    maxWidth = 'max-width',
+    zIndex = 'z-index',
 ) =>
     styleObjectToStyleString({
         '.__react-gt__': {
@@ -74,7 +76,7 @@ const styleCreator = (
             },
             'dot-wrapper': {
                 [display]: 'flex',
-                'max-width': '200px',
+                [maxWidth]: '200px',
                 'flex-wrap': 'wrap',
                 'align-items': 'center',
             },
@@ -96,7 +98,7 @@ const styleCreator = (
                 right: 0,
                 left: 0,
                 bottom: 0,
-                'z-index': 999996,
+                [zIndex]: 999996,
             },
             'page-number': {
                 [backgroundColor]: primaryColor,
@@ -113,14 +115,14 @@ const styleCreator = (
                 top: '-10px',
             },
             modal: {
-                'max-width': '330px',
+                [maxWidth]: '330px',
                 'min-height': '48px',
                 [position]: 'fixed',
                 [backgroundColor]: '#fff',
                 left: 0,
                 top: 0,
                 [borderRadius]: '8px',
-                'z-index': 999999,
+                [zIndex]: 999999,
                 'box-shadow': 'rgb(0 0 0 / 30%) 0px 0.5em 3em',
                 '-content': {
                     overflow: 'hidden',

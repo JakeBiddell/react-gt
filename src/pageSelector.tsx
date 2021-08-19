@@ -4,7 +4,7 @@ import { LeftArrow, RightArrow } from './Icons';
 const DotButton = ({ selected, onClick }: { selected: boolean; onClick: MouseEventHandler }) => (
     <button
         type="button"
-        className={selected ? `_react-gt__dot _react-gt__dot-selected` : '__react-gt__dot'}
+        className={selected ? `__react-gt__dot __react-gt__dot-selected` : '__react-gt__dot'}
         onClick={onClick}
     >
         <div />
