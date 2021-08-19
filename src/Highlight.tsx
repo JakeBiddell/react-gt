@@ -57,57 +57,54 @@ const Arrow = ({ x, y, rotation, scrollToElement }: ArrowProps) => {
     );
 };
 
-type HighLightProps = { boundaries: DOMRect; scrollToElement: () => void };
-const Highlight = ({
-    boundaries: { top, left, height, width },
-    scrollToElement,
-}: HighLightProps) => (
+type HighLightProps = { boundaries: DOMRect };
+const Highlight = ({ boundaries: { top, left, height, width } }: HighLightProps) => (
     <FadeIn style={{ zIndex: 999997, position: 'absolute' }}>
         {(() => {
-            // if the element is above the client view show the up arrrow at the top of the screen
-            if (top < -height) {
-                return (
-                    <Arrow // Up Arrow
-                        scrollToElement={scrollToElement}
-                        x={-(left + width / 2 - 60)} // align horizontally with element
-                        y={0} // align to the bottom
-                        rotation={90} // turn the arrow to point up
-                    />
-                );
-            }
-            // if the element is beneath the client view show the down arrrow at the bottom of the screen
-            if (top > window.innerHeight - 10) {
-                return (
-                    <Arrow // Down Arrow
-                        scrollToElement={scrollToElement}
-                        x={left + width / 2 - 60} // align horizontally with element
-                        y={-(window.innerHeight - 120)} // align to the top
-                        rotation={270} // turn the arrow to point down
-                    />
-                );
-            }
-            // if the element is right of the client view show the right arrow to the right of the screen
-            if (left > window.innerWidth - 10) {
-                return (
-                    <Arrow // Right Arrow
-                        scrollToElement={scrollToElement}
-                        x={-(top + height / 2 - 60)} // align vertically with element
-                        y={-(window.innerWidth - 120)} // align to the right
-                        rotation={180} // turn the arrow to point right
-                    />
-                );
-            }
-            // if the element is left of the client view show the left arrow to the left of the screen
-            if (left < -width) {
-                return (
-                    <Arrow // Left Arrow
-                        scrollToElement={scrollToElement}
-                        x={top + height / 2 - 60} // align vertically with element
-                        y={0} // align to the left
-                        rotation={0} // turn the arrow to point left
-                    />
-                );
-            }
+            // // if the element is above the client view show the up arrrow at the top of the screen
+            // if (top < -height) {
+            //     return (
+            //         <Arrow // Up Arrow
+            //             scrollToElement={scrollToElement}
+            //             x={-(left + width / 2 - 60)} // align horizontally with element
+            //             y={0} // align to the bottom
+            //             rotation={90} // turn the arrow to point up
+            //         />
+            //     );
+            // }
+            // // if the element is beneath the client view show the down arrrow at the bottom of the screen
+            // if (top > window.innerHeight - 10) {
+            //     return (
+            //         <Arrow // Down Arrow
+            //             scrollToElement={scrollToElement}
+            //             x={left + width / 2 - 60} // align horizontally with element
+            //             y={-(window.innerHeight - 120)} // align to the top
+            //             rotation={270} // turn the arrow to point down
+            //         />
+            //     );
+            // }
+            // // if the element is right of the client view show the right arrow to the right of the screen
+            // if (left > window.innerWidth - 10) {
+            //     return (
+            //         <Arrow // Right Arrow
+            //             scrollToElement={scrollToElement}
+            //             x={-(top + height / 2 - 60)} // align vertically with element
+            //             y={-(window.innerWidth - 120)} // align to the right
+            //             rotation={180} // turn the arrow to point right
+            //         />
+            //     );
+            // }
+            // // if the element is left of the client view show the left arrow to the left of the screen
+            // if (left < -width) {
+            //     return (
+            //         <Arrow // Left Arrow
+            //             scrollToElement={scrollToElement}
+            //             x={top + height / 2 - 60} // align vertically with element
+            //             y={0} // align to the left
+            //             rotation={0} // turn the arrow to point left
+            //         />
+            //     );
+            // }
             return (
                 <div
                     style={{
