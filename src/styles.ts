@@ -96,7 +96,7 @@ const styleCreator = (
                 right: 0,
                 left: 0,
                 bottom: 0,
-                zIndex: 999996,
+                'z-index': 999996,
             },
             'page-number': {
                 [backgroundColor]: '#00c19f',
@@ -120,7 +120,7 @@ const styleCreator = (
                 left: 0,
                 top: 0,
                 [borderRadius]: '8px',
-                zIndex: 999999,
+                'z-index': 999999,
                 'box-shadow': 'rgb(0 0 0 / 30%) 0px 0.5em 3em',
                 '-content': {
                     overflow: 'hidden',

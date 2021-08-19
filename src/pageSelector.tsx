@@ -31,7 +31,7 @@ const PageSelector = ({ stepIndex, changeStep, allSteps }: Props) => (
             disabled={allSteps[0] === stepIndex}
             onClick={() => changeStep(stepIndex - 1)}
         />
-        <div className="__react-gt__ot-wrapper">
+        <div className="__react-gt__dot-wrapper">
             {allSteps.map((x, index) => (
                 <DotButton
                     key={x}
