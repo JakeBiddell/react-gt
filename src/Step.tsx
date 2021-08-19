@@ -62,8 +62,9 @@ const Step = React.memo(
         }, [element]);
         return (
             <>
-                <Highlight scrollToElement={scrollToElement} boundaries={boundaries} />
+                <Highlight boundaries={boundaries} />
                 <Modal
+                    scrollToElement={scrollToElement}
                     boundaries={boundaries}
                     renderedContent={renderedContent}
                     stepIndex={stepIndex}

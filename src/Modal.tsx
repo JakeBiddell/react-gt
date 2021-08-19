@@ -1,9 +1,20 @@
 import React, { useMemo, useRef } from 'react';
 import CloseButton from './CloseButton';
 import FadeIn from './FadeIn';
+import { DownArrow, LeftArrow, RightArrow, UpArrow } from './Icons';
 import calculateModalPosition from './LIB/calculateModalPosition';
 import PageNumber from './PageNumber';
 import PageSelector from './pageSelector';
+const getArrow = ({ top, left, height, width }: DOMRect) =>
+    top < -height ? (
+        <UpArrow />
+    ) : top > window.innerHeight - 10 ? (
+        <DownArrow />
+    ) : left > window.innerWidth - 10 ? (
+        <RightArrow />
+    ) : left < -width ? (
+        <LeftArrow />
+    ) : null;
 
 const speed = '0.4';
 
@@ -14,6 +25,7 @@ const Modal = ({
     allSteps,
     close,
     renderedContent,
+    scrollToElement,
 }: {
     boundaries: DOMRect;
     stepIndex: number;
@@ -21,6 +33,7 @@ const Modal = ({
     allSteps: number[];
     close: (event: React.MouseEvent) => void;
     renderedContent: any;
+    scrollToElement: () => void;
 }) => {
     const ref = useRef(undefined as HTMLDivElement);
     const content = useMemo(
@@ -36,6 +49,7 @@ const Modal = ({
         () => calculateModalPosition(boundaries, (ref?.current?.clientHeight ?? 0) + 48),
         [boundaries],
     );
+    const arrow = useMemo(() => getArrow(boundaries), [boundaries]);
     return (
         <FadeIn
             className="__react-gt__modal"
@@ -55,7 +69,9 @@ const Modal = ({
                 style={{
                     padding: `24px ${position.width / 11}px`,
                 }}
+                onClick={!!arrow ? scrollToElement : undefined}
             >
+                {!!arrow && <div className="__react-gt__arrow">{arrow}</div>}
                 <PageNumber selectedIndex={stepIndex} />
                 <CloseButton close={close} />
                 {content}

@@ -26,6 +26,10 @@ const styleCreator = (
     position = 'position',
     maxWidth = 'max-width',
     zIndex = 'z-index',
+    justifyContent = 'justify-content',
+    alignItems = 'align-items',
+    boxShadow = 'box-shadow',
+    hover = ':hover',
 ) =>
     styleObjectToStyleString({
         '.__react-gt__': {
@@ -66,19 +70,19 @@ const styleCreator = (
                     [color]: '#e0e0e0',
                     [cursor]: 'default',
                 },
-                ':hover': {
+                [hover]: {
                     [color]: '#212121',
                 },
             },
             'page-selector': {
                 [display]: 'flex',
-                'justify-content': 'space-between',
+                [justifyContent]: 'space-between',
             },
             'dot-wrapper': {
                 [display]: 'flex',
                 [maxWidth]: '200px',
                 'flex-wrap': 'wrap',
-                'align-items': 'center',
+                [alignItems]: 'center',
             },
             'close-button': {
                 [backgroundColor]: 'transparent',
@@ -88,7 +92,7 @@ const styleCreator = (
                 [position]: 'absolute',
                 top: '12px',
                 right: '15px',
-                ':hover': {
+                [hover]: {
                     [color]: '#212121',
                 },
             },
@@ -103,13 +107,13 @@ const styleCreator = (
             'page-number': {
                 [backgroundColor]: primaryColor,
                 [color]: 'white',
-                'box-shadow': 'rgb(0 0 0 / 30%) 0px 0.5em 3em',
+                [boxShadow]: 'rgb(0 0 0 / 30%) 0px 0.5em 3em',
                 [width]: '40px',
                 [height]: '40px',
                 [borderRadius]: '50%',
                 [display]: 'flex',
-                'align-items': 'center',
-                'justify-content': 'center',
+                [alignItems]: 'center',
+                [justifyContent]: 'center',
                 [position]: 'absolute',
                 left: '-10px',
                 top: '-10px',
@@ -123,7 +127,7 @@ const styleCreator = (
                 top: 0,
                 [borderRadius]: '8px',
                 [zIndex]: 999999,
-                'box-shadow': 'rgb(0 0 0 / 30%) 0px 0.5em 3em',
+                [boxShadow]: 'rgb(0 0 0 / 30%) 0px 0.5em 3em',
                 '-content': {
                     overflow: 'hidden',
                     [height]: '100%',
@@ -133,11 +137,18 @@ const styleCreator = (
                 fill: 'currentColor',
                 [width]: '1em',
                 [height]: '1em',
-                display: 'inline-block',
+                [display]: 'inline-block',
                 'font-size': '1.5rem',
                 transition: 'fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
                 'flex-shrink': 0,
                 'user-select': 'none',
+            },
+            arrow: {
+                [position]: 'absolute',
+                right: 0,
+                top: 0,
+                [borderRadius]: '50%',
+                [backgroundColor]: primaryColor,
             },
         },
     });
