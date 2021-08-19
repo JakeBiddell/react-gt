@@ -47,11 +47,11 @@ const styleCreator = (
                 '-selected': {
                     ' div': {
                         [cursor]: 'default',
-                        [backgroundColor]: '#00c19f',
-                        [border]: '1px solid #00c19f',
+                        [backgroundColor]: primaryColor,
+                        [border]: `1px solid ${primaryColor}`,
                     },
                     ':hover div': {
-                        [backgroundColor]: '#00c19f',
+                        [backgroundColor]: primaryColor,
                     },
                 },
             },
@@ -99,7 +99,7 @@ const styleCreator = (
                 'z-index': 999996,
             },
             'page-number': {
-                [backgroundColor]: '#00c19f',
+                [backgroundColor]: primaryColor,
                 [color]: 'white',
                 'box-shadow': 'rgb(0 0 0 / 30%) 0px 0.5em 3em',
                 [width]: '40px',
