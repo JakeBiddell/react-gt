@@ -31,17 +31,7 @@ const ReactGT = ({
             <style>{styles}</style>
             {
                 // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-                <div
-                    style={{
-                        position: 'fixed',
-                        top: 0,
-                        right: 0,
-                        left: 0,
-                        bottom: 0,
-                        zIndex: 999996,
-                    }}
-                    onClick={close}
-                />
+                <div className="__react-gt__overlay" onClick={close} />
             }
             <Step
                 {...steps[currentIndex]}

@@ -1,12 +1,10 @@
 import React, { MouseEventHandler, useState } from 'react';
-import Hover from './Hover';
 import { LeftArrow, RightArrow } from './Icons';
-import { dotclass, selectedDotClass } from './styles';
 
 const DotButton = ({ selected, onClick }: { selected: boolean; onClick: MouseEventHandler }) => (
     <button
         type="button"
-        className={selected ? `${dotclass} ${selectedDotClass}` : dotclass}
+        className={selected ? `_react-gt__dot _react-gt__dot-selected` : '__react-gt__dot'}
         onClick={onClick}
     >
         <div />
@@ -17,42 +15,23 @@ type ButtonType = { direction: -1 | 1; disabled: boolean; onClick: MouseEventHan
 const ChevronButton = ({ direction, disabled, onClick }: ButtonType) => (
     <button
         type="button"
-        style={{
-            backgroundColor: 'inherit',
-            border: 'none',
-            color: disabled ? '#e0e0e0' : '#757575',
-            cursor: disabled ? 'default' : 'pointer',
-        }}
+        className="__react-gt__chevron-button"
         disabled={disabled}
         onClick={onClick}
     >
-        <Hover style={disabled ? undefined : { color: '#212121' }}>
-            {direction === -1 ? <LeftArrow /> : <RightArrow />}
-        </Hover>
+        {direction === -1 ? <LeftArrow /> : <RightArrow />}
     </button>
 );
 
 type Props = { stepIndex: number; changeStep: (index: number) => void; allSteps: number[] };
 const PageSelector = ({ stepIndex, changeStep, allSteps }: Props) => (
-    <div
-        style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-        }}
-    >
+    <div className="__react-gt__page-selector">
         <ChevronButton
             direction={-1}
             disabled={allSteps[0] === stepIndex}
             onClick={() => changeStep(stepIndex - 1)}
         />
-        <div
-            style={{
-                display: 'flex',
-                maxWidth: '200px',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-            }}
-        >
+        <div className="__react-gt__ot-wrapper">
             {allSteps.map((x, index) => (
                 <DotButton
                     key={x}

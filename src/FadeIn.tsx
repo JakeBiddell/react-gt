@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
-const FadeIn = ({ children, style }: { children?: JSX.Element; style?: React.CSSProperties }) => {
+const FadeIn = ({
+    children,
+    style,
+    className,
+}: {
+    children?: JSX.Element;
+    style?: React.CSSProperties;
+    className?: string;
+}) => {
     const [hidden, setHidden] = useState(true);
     useEffect(() => {
         setTimeout(() => {
@@ -9,6 +17,7 @@ const FadeIn = ({ children, style }: { children?: JSX.Element; style?: React.CSS
     }, []);
     return (
         <div
+            className={className}
             style={{
                 ...style,
                 transition: style?.transition
