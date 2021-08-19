@@ -147,8 +147,8 @@ const styleCreator = (
             },
             arrow: {
                 [position]: 'absolute',
-                right: -10,
-                top: -10,
+                right: '-10px',
+                top: '-10px',
                 [width]: '40px',
                 [height]: '40px',
                 [borderRadius]: '50%',
@@ -156,6 +156,7 @@ const styleCreator = (
                 [display]: flex,
                 [justifyContent]: center,
                 [alignItems]: center,
+                [color]: 'white',
             },
         },
     });
