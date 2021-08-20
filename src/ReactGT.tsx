@@ -38,7 +38,7 @@ const ReactGT = ({
     if (!open) return null;
 
     return (
-        <>
+        <div className="__react-gt__">
             <style>{styles()}</style>
             {
                 // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
@@ -62,7 +62,7 @@ const ReactGT = ({
                     dialogWrapper: overrides?.dialogWrapper ?? DialogWrapper,
                 }}
             />
-        </>
+        </div>
     );
 };
 

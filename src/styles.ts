@@ -39,6 +39,7 @@ const styleCreator = (
 ) =>
     styleObjectToStyleString({
         '.__react-gt__': {
+            [zIndex]: 999995,
             dot: {
                 [cursor]: 'pointer',
                 [display]: 'contents',
