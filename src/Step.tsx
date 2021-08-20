@@ -46,12 +46,12 @@ const Styler = ({ boundaries }: { boundaries: DOMRect }) => {
                         },
                         '-content': {
                             padding: `24px ${position.width / 11}px`,
-                            width: `${boundaries.width + 20}px`,
                         },
                     },
                     highlight: {
                         transform: `translate(${boundaries.left - 10}px, ${boundaries.top - 10}px)`,
                         height: `${boundaries.height + 20}px`,
+                        width: `${boundaries.width + 20}px`,
                     },
                 },
             })}
