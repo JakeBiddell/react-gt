@@ -43,16 +43,6 @@ const PageSelector = ({
             goBack={() => changeStep(stepIndex - 1)}
             skipTo={changeStep}
         />
-        <div className="__react-gt__dot-wrapper">
-            {allSteps.map((x, index) => (
-                <StepButton
-                    key={x}
-                    currentStep={stepIndex}
-                    step={index}
-                    goToStep={() => changeStep(index)}
-                />
-            ))}
-        </div>
         <NextStepButton
             currentStep={stepIndex}
             goNext={() => changeStep(stepIndex + 1)}

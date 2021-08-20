@@ -15,14 +15,16 @@ type Props = Partial<ReactGTStep> & {
     overrides: Overrides;
 };
 
-const Styler = React.memo(({ top, left, height, width }: DOMRect) => (
-    <style>
-        .__react-gt__highlight{'{'}
-        transform: translate({left - 10}px, {top - 10}px);width: {width + 20}px;height:{' '}
-        {height + 20}px
-        {'}'}
-    </style>
-));
+const Styler = React.memo(
+    ({ boundaries: { top, left, height, width } }: { boundaries: DOMRect }) => (
+        <style>
+            .__react-gt__highlight{'{'}
+            transform: translate({left - 10}px, {top - 10}px);width: {width + 20}px;height:{' '}
+            {height + 20}px
+            {'}'}
+        </style>
+    ),
+);
 
 const Step = React.memo(
     ({
@@ -73,7 +75,7 @@ const Step = React.memo(
         }, [element]);
         return (
             <>
-                <Styler {...boundaries} />
+                <Styler boundaries={boundaries} />
                 <Highlight />
                 <Modal
                     scrollToElement={scrollToElement}
