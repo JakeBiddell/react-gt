@@ -17,14 +17,9 @@ const FadeIn = ({
     }, []);
     return (
         <div
-            className={className}
-            style={{
-                ...style,
-                transition: style?.transition
-                    ? `${style.transition}, opacity 0.4s ease`
-                    : `opacity 0.4s ease`,
-                opacity: hidden ? 0 : 1,
-            }}
+            className={`${className} __react-gt__fade-in ${
+                hidden ? '' : '__react-gt__fade-in-init'
+            }`}
         >
             {children}
         </div>

@@ -1,19 +1,28 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { ReactGTStep } from './types';
+import { Overrides, ReactGTStep } from './types';
 import Highlight from './Highlight';
 import Modal from './Modal';
 import { useCallback } from 'react';
 
 const $ = (query: string) => document.querySelector(query);
 
-const scrollOptions = { behavior: 'smooth', block: 'center' } as ScrollIntoViewOptions;
-
 type Props = Partial<ReactGTStep> & {
     stepIndex: number;
     changeStep: (index: number) => void;
     allSteps: number[];
-    close: (event: React.MouseEvent) => void;
+    close: () => void;
+    scrollIntoViewOptions: ScrollIntoViewOptions;
+    overrides: Overrides;
 };
+
+const Styler = React.memo(({ top, left, height, width }: DOMRect) => (
+    <style>
+        .__react-gt__highlight{'{'}
+        transform: translate({left - 10}px, {top - 10}px);width: {width + 20}px;height:{' '}
+        {height + 20}px
+        {'}'}
+    </style>
+));
 
 const Step = React.memo(
     ({
@@ -23,6 +32,8 @@ const Step = React.memo(
         allSteps,
         close,
         renderedContent,
+        scrollIntoViewOptions,
+        overrides,
     }: Props & { element: Element; renderedContent: any }) => {
         const [boundaries, setBoundaries] = useState(() => element.getBoundingClientRect());
         const adjustBoundaries = useCallback(
@@ -30,7 +41,7 @@ const Step = React.memo(
             [element],
         );
         const scrollToElement = useCallback(() => {
-            element.scrollIntoView(scrollOptions);
+            element.scrollIntoView(scrollIntoViewOptions);
             adjustBoundaries();
         }, [element]);
         const keyDownEventHandler = useCallback(
@@ -62,7 +73,8 @@ const Step = React.memo(
         }, [element]);
         return (
             <>
-                <Highlight boundaries={boundaries} />
+                <Styler {...boundaries} />
+                <Highlight />
                 <Modal
                     scrollToElement={scrollToElement}
                     boundaries={boundaries}
@@ -71,6 +83,7 @@ const Step = React.memo(
                     changeStep={changeStep}
                     allSteps={allSteps}
                     close={close}
+                    overrides={overrides}
                 />
             </>
         );

@@ -1,49 +1,63 @@
-import React, { MouseEventHandler, useState } from 'react';
-import { LeftArrow, RightArrow } from './Icons';
+import React from 'react';
+import { Overrides } from './types';
 
-const DotButton = ({ selected, onClick }: { selected: boolean; onClick: MouseEventHandler }) => (
-    <button
-        type="button"
-        className={selected ? `__react-gt__dot __react-gt__dot-selected` : '__react-gt__dot'}
-        onClick={onClick}
-    >
-        <div />
-    </button>
-);
-
-type ButtonType = { direction: -1 | 1; disabled: boolean; onClick: MouseEventHandler };
-const ChevronButton = ({ direction, disabled, onClick }: ButtonType) => (
-    <button
-        type="button"
-        className="__react-gt__chevron-button"
-        disabled={disabled}
-        onClick={onClick}
-    >
-        {direction === -1 ? <LeftArrow /> : <RightArrow />}
-    </button>
-);
-
-type Props = { stepIndex: number; changeStep: (index: number) => void; allSteps: number[] };
-const PageSelector = ({ stepIndex, changeStep, allSteps }: Props) => (
+type Props = {
+    stepIndex: number;
+    changeStep: (index: number) => void;
+    allSteps: number[];
+    overrides: Pick<
+        Overrides,
+        'nextStepButton' | 'previousStepButton' | 'stepButton' | 'stepButtonWrapper'
+    >;
+};
+const PageSelector = ({
+    stepIndex,
+    changeStep,
+    allSteps,
+    overrides: {
+        nextStepButton: NextStepButton,
+        previousStepButton: PreviousStepButton,
+        stepButton: StepButton,
+        stepButtonWrapper: StepButtonWrapper,
+    },
+}: Props) => (
     <div className="__react-gt__page-selector">
-        <ChevronButton
-            direction={-1}
-            disabled={allSteps[0] === stepIndex}
-            onClick={() => changeStep(stepIndex - 1)}
+        <PreviousStepButton
+            currentStep={stepIndex}
+            goBack={() => changeStep(stepIndex - 1)}
+            skipTo={changeStep}
+            totalSteps={allSteps.length}
+        />
+        <StepButtonWrapper
+            stepButtons={allSteps.map((x, index) => (
+                <StepButton
+                    key={x}
+                    currentStep={stepIndex}
+                    step={index}
+                    goToStep={() => changeStep(index)}
+                />
+            ))}
+            currentStep={stepIndex}
+            totalSteps={allSteps.length}
+            goNext={() => changeStep(stepIndex + 1)}
+            goBack={() => changeStep(stepIndex - 1)}
+            skipTo={changeStep}
         />
         <div className="__react-gt__dot-wrapper">
             {allSteps.map((x, index) => (
-                <DotButton
+                <StepButton
                     key={x}
-                    onClick={() => changeStep(index)}
-                    selected={index === stepIndex}
+                    currentStep={stepIndex}
+                    step={index}
+                    goToStep={() => changeStep(index)}
                 />
             ))}
         </div>
-        <ChevronButton
-            direction={1}
-            disabled={allSteps[allSteps.length - 1] === stepIndex}
-            onClick={() => changeStep(stepIndex + 1)}
+        <NextStepButton
+            currentStep={stepIndex}
+            goNext={() => changeStep(stepIndex + 1)}
+            skipTo={changeStep}
+            totalSteps={allSteps.length}
         />
     </div>
 );

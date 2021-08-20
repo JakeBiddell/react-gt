@@ -1,3 +1,3 @@
-declare const _default: string;
-export default _default;
+declare const styleCreator: (speed?: number, primaryColor?: string, backgroundColor?: string, border?: string, display?: string, color?: string, cursor?: string, width?: string, height?: string, borderRadius?: string, position?: string, maxWidth?: string, zIndex?: string, justifyContent?: string, alignItems?: string, boxShadow?: string, hover?: string, center?: string, flex?: string, transition?: string, opacity?: string, overflow?: string) => string;
+export default styleCreator;
 //# sourceMappingURL=styles.d.ts.map

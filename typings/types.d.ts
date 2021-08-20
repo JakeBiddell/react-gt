@@ -1,3 +1,9 @@
+import CloseButton from './CloseButton';
+import CurrentStepLabel from './CurrentStepLabel';
+import NextStepButton from './NextStepButton';
+import PreviousStepButton from './PreviousStepButton';
+import StepButton from './StepButton';
+import StepButtonWrapper from './StepButtonWrapper';
 export declare type CRMTourContextValues = {
     open: (atStep?: number) => void;
     close: () => void;
@@ -18,5 +24,13 @@ export declare type Position = {
     bottom?: number;
     width?: number;
     height?: number;
+};
+export declare type Overrides = {
+    closeButton: typeof CloseButton;
+    currentStepLabel: typeof CurrentStepLabel;
+    nextStepButton: typeof NextStepButton;
+    previousStepButton: typeof PreviousStepButton;
+    stepButton: typeof StepButton;
+    stepButtonWrapper: typeof StepButtonWrapper;
 };
 //# sourceMappingURL=types.d.ts.map

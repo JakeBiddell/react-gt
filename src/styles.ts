@@ -14,6 +14,7 @@ const styleObjectToStyleString = (obj: Record<string, any>) =>
     }, '');
 
 const styleCreator = (
+    speed = 0.4,
     primaryColor = '#00c19f',
     backgroundColor = 'background-color',
     border = 'border',
@@ -32,6 +33,9 @@ const styleCreator = (
     hover = ':hover',
     center = 'center',
     flex = 'flex',
+    transition = 'transition',
+    opacity = 'opacity',
+    overflow = 'overflow',
 ) =>
     styleObjectToStyleString({
         '.__react-gt__': {
@@ -47,7 +51,7 @@ const styleCreator = (
                     [border]: '1px solid #757575',
                     [borderRadius]: '50%',
                     'margin-right': '7px',
-                    overflow: 'hidden',
+                    [overflow]: 'hidden',
                 },
                 ':hover div': {
                     [backgroundColor]: '#757575',
@@ -121,6 +125,7 @@ const styleCreator = (
                 top: '-10px',
             },
             modal: {
+                [transition]: `transform ${speed}s ease, height ${speed}s ease, width ${speed}s ease`,
                 [maxWidth]: '330px',
                 'min-height': '48px',
                 [position]: 'fixed',
@@ -131,7 +136,7 @@ const styleCreator = (
                 [zIndex]: 999999,
                 [boxShadow]: 'rgb(0 0 0 / 30%) 0px 0.5em 3em',
                 '-content': {
-                    overflow: 'hidden',
+                    [overflow]: 'hidden',
                     [height]: '100%',
                 },
             },
@@ -141,7 +146,7 @@ const styleCreator = (
                 [height]: '1em',
                 [display]: 'inline-block',
                 'font-size': '1.5rem',
-                transition: 'fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+                [transition]: 'fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
                 'flex-shrink': 0,
                 'user-select': 'none',
             },
@@ -158,6 +163,23 @@ const styleCreator = (
                 [alignItems]: center,
                 [color]: 'white',
             },
+            highlight: {
+                left: 0,
+                right: 0,
+                [position]: 'fixed',
+                [borderRadius]: '8px',
+                [boxShadow]: '0 0 0 calc(200vh + 200vw) rgba(0, 0, 0, .8)',
+                [transition]: `transform ${speed}s ease, height ${speed}s ease, width ${speed}s ease`,
+                [zIndex]: 999997,
+                [position]: 'absolute',
+            },
+            'fade-in': {
+                [transition]: `${opacity} ${speed}s ease`,
+                [opacity]: 0,
+                '-init': {
+                    [opacity]: 1,
+                },
+            },
         },
     });
-export default styleCreator();
+export default styleCreator;

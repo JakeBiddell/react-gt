@@ -1,10 +1,9 @@
 import React, { useMemo, useRef } from 'react';
-import CloseButton from './CloseButton';
 import FadeIn from './FadeIn';
 import { DownArrow, LeftArrow, RightArrow, UpArrow } from './Icons';
 import calculateModalPosition from './LIB/calculateModalPosition';
-import PageNumber from './PageNumber';
 import PageSelector from './pageSelector';
+import { Overrides } from './types';
 const getArrow = ({ top, left, height, width }: DOMRect) =>
     top < -height ? (
         <UpArrow />
@@ -16,7 +15,16 @@ const getArrow = ({ top, left, height, width }: DOMRect) =>
         <LeftArrow />
     ) : null;
 
-const speed = '0.4';
+export type ModalProps = {
+    boundaries: DOMRect;
+    stepIndex: number;
+    changeStep: (index: number) => void;
+    allSteps: number[];
+    close: () => void;
+    renderedContent: any;
+    scrollToElement: () => void;
+    overrides: Overrides;
+};
 
 const Modal = ({
     boundaries,
@@ -26,21 +34,19 @@ const Modal = ({
     close,
     renderedContent,
     scrollToElement,
-}: {
-    boundaries: DOMRect;
-    stepIndex: number;
-    changeStep: (index: number) => void;
-    allSteps: number[];
-    close: (event: React.MouseEvent) => void;
-    renderedContent: any;
-    scrollToElement: () => void;
-}) => {
+    overrides: { closeButton: CloseButton, currentStepLabel: CurrentStepLabel, ...overrides },
+}: ModalProps) => {
     const ref = useRef(undefined as HTMLDivElement);
     const content = useMemo(
         () => (
             <div ref={ref}>
                 {renderedContent}
-                <PageSelector stepIndex={stepIndex} changeStep={changeStep} allSteps={allSteps} />
+                <PageSelector
+                    stepIndex={stepIndex}
+                    changeStep={changeStep}
+                    allSteps={allSteps}
+                    overrides={overrides}
+                />
             </div>
         ),
         [allSteps, changeStep, renderedContent, stepIndex],
@@ -54,7 +60,6 @@ const Modal = ({
         <FadeIn
             className="__react-gt__modal"
             style={{
-                transition: `transform ${speed}s ease, height ${speed}s ease, width ${speed}s ease`,
                 transform: `translate(${
                     position.right
                         ? `calc(${document.body.clientWidth - position.right}px - 100%)`
@@ -72,7 +77,7 @@ const Modal = ({
                 onClick={!!arrow ? scrollToElement : undefined}
             >
                 {!!arrow && <div className="__react-gt__arrow">{arrow}</div>}
-                <PageNumber selectedIndex={stepIndex} />
+                <CurrentStepLabel currentStep={stepIndex} totalSteps={allSteps.length} />
                 <CloseButton close={close} />
                 {content}
             </div>
