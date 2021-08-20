@@ -52,7 +52,7 @@ const Modal = ({
 }: ModalProps) => {
     const ref = useRef(undefined as HTMLDivElement);
     const position = useMemo(
-        () => calculateModalPosition(boundaries, (ref?.current?.clientHeight ?? 0) + 48),
+        () => calculateModalPosition(boundaries, ref?.current?.clientHeight ?? 0),
         [boundaries],
     );
     const arrowDirection = useMemo(() => getArrowDirection(boundaries), [boundaries]);
