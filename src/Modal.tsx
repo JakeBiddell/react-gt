@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import FadeIn from './FadeIn';
 import { ArrowDirections, Overrides } from './types';
 
-export type ModalProps = {
+export type ModalProps = Overrides & {
     arrowDirection: ArrowDirections;
     stepIndex: number;
     changeStep: (index: number) => void;
@@ -10,7 +10,6 @@ export type ModalProps = {
     close: () => void;
     renderedContent: any;
     scrollToElement: () => void;
-    overrides: Overrides;
 };
 
 const Modal = ({
@@ -21,16 +20,14 @@ const Modal = ({
     close,
     renderedContent: content,
     scrollToElement,
-    overrides: {
-        arrow: Arrow,
-        closeButton: CloseButton,
-        currentStepLabel: CurrentStepLabel,
-        dialogWrapper: DialogWrapper,
-        nextStepButton: NextStepButton,
-        previousStepButton: PreviousStepButton,
-        stepButtonWrapper: StepButtonWrapper,
-        stepButton: StepButton,
-    },
+    arrow: Arrow,
+    closeButton: CloseButton,
+    currentStepLabel: CurrentStepLabel,
+    dialogWrapper: DialogWrapper,
+    nextStepButton: NextStepButton,
+    previousStepButton: PreviousStepButton,
+    stepButtonWrapper: StepButtonWrapper,
+    stepButton: StepButton,
 }: ModalProps) => {
     const arrow = useMemo(() => <Arrow direction={arrowDirection} />, [arrowDirection]);
     const currentStepLabel = useMemo(
@@ -46,7 +43,7 @@ const Modal = ({
                 totalSteps={allSteps.length}
             />
         ),
-        [stepIndex, changeStep, allSteps.length],
+        [stepIndex, changeStep, allSteps.length, NextStepButton],
     );
     const previousStepButton = useMemo(
         () => (
@@ -57,7 +54,7 @@ const Modal = ({
                 totalSteps={allSteps.length}
             />
         ),
-        [stepIndex, changeStep, allSteps.length],
+        [stepIndex, changeStep, allSteps.length, PreviousStepButton],
     );
     const stepButtonWrapper = useMemo(
         () => (
@@ -77,9 +74,9 @@ const Modal = ({
                 skipTo={changeStep}
             />
         ),
-        [allSteps, stepIndex, changeStep],
+        [allSteps, stepIndex, changeStep, StepButton, StepButtonWrapper],
     );
-    const closeButton = useMemo(() => <CloseButton close={close} />, [close]);
+    const closeButton = useMemo(() => <CloseButton close={close} />, [close, CloseButton]);
     return (
         <FadeIn>
             <div className="__react-gt__modal-position">

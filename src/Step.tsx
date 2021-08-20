@@ -9,14 +9,14 @@ import getArrowDirection from './LIB/getArrowDirection';
 
 const $ = (query: string) => document.querySelector(query);
 
-type Props = Partial<ReactGTStep> & {
-    stepIndex: number;
-    changeStep: (index: number) => void;
-    allSteps: number[];
-    close: () => void;
-    scrollIntoViewOptions: ScrollIntoViewOptions;
-    overrides: Overrides;
-};
+type Props = Partial<ReactGTStep> &
+    Overrides & {
+        stepIndex: number;
+        changeStep: (index: number) => void;
+        allSteps: number[];
+        close: () => void;
+        scrollIntoViewOptions: ScrollIntoViewOptions;
+    };
 
 const Styler = React.memo(({ boundaries }: { boundaries: DOMRect }) => {
     const modalContainer = $(`#__react-gt__modal-container`);
@@ -63,7 +63,14 @@ const Step = React.memo(
         close,
         renderedContent,
         scrollIntoViewOptions,
-        overrides,
+        closeButton,
+        currentStepLabel,
+        nextStepButton,
+        previousStepButton,
+        stepButton,
+        stepButtonWrapper,
+        arrow,
+        dialogWrapper,
     }: Props & { element: Element; renderedContent: any }) => {
         const [boundaries, setBoundaries] = useState(() => element.getBoundingClientRect());
         const adjustBoundaries = useCallback(
@@ -115,7 +122,16 @@ const Step = React.memo(
                     changeStep={changeStep}
                     allSteps={allSteps}
                     close={close}
-                    overrides={overrides}
+                    {...{
+                        closeButton,
+                        currentStepLabel,
+                        nextStepButton,
+                        previousStepButton,
+                        stepButton,
+                        stepButtonWrapper,
+                        arrow,
+                        dialogWrapper,
+                    }}
                 />
             </>
         );

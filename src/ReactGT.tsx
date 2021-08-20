@@ -11,14 +11,13 @@ import StepButtonWrapper from './StepButtonWrapper';
 import styles from './styles';
 import { Overrides, ReactGTStep } from './types';
 
-type ReactGTProps = {
+type ReactGTProps = Partial<Overrides> & {
     open: boolean;
     onClose: () => void;
     openAt?: number;
     steps: ReactGTStep[];
     scrollIntoViewOptions?: ScrollIntoViewOptions;
     transitionSpeed?: number;
-    overrides?: Partial<Overrides>;
 };
 
 const ReactGT = ({
@@ -27,7 +26,14 @@ const ReactGT = ({
     steps,
     openAt = 0,
     scrollIntoViewOptions = { behavior: 'smooth', block: 'center' },
-    overrides,
+    closeButton = CloseButton,
+    currentStepLabel = CurrentStepLabel,
+    nextStepButton = NextStepButton,
+    previousStepButton = PreviousStepButton,
+    stepButton = StepButton,
+    stepButtonWrapper = StepButtonWrapper,
+    arrow = Arrow,
+    dialogWrapper = DialogWrapper,
 }: ReactGTProps) => {
     const [currentIndex, setCurrentIndex] = useState(openAt);
     const allSteps = useMemo(() => steps.map((_, i) => i), [steps]);
@@ -51,15 +57,15 @@ const ReactGT = ({
                 allSteps={allSteps}
                 close={close}
                 scrollIntoViewOptions={scrollIntoViewOptions}
-                overrides={{
-                    closeButton: overrides?.closeButton ?? CloseButton,
-                    currentStepLabel: overrides?.currentStepLabel ?? CurrentStepLabel,
-                    nextStepButton: overrides?.nextStepButton ?? NextStepButton,
-                    previousStepButton: overrides?.previousStepButton ?? PreviousStepButton,
-                    stepButton: overrides?.stepButton ?? StepButton,
-                    stepButtonWrapper: overrides?.stepButtonWrapper ?? StepButtonWrapper,
-                    arrow: overrides?.arrow ?? Arrow,
-                    dialogWrapper: overrides?.dialogWrapper ?? DialogWrapper,
+                {...{
+                    closeButton,
+                    currentStepLabel,
+                    nextStepButton,
+                    previousStepButton,
+                    stepButton,
+                    stepButtonWrapper,
+                    arrow,
+                    dialogWrapper,
                 }}
             />
         </div>
