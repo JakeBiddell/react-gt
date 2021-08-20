@@ -18,7 +18,7 @@ type Props = Partial<ReactGTStep> & {
 const Styler = ({ boundaries: { top, left, height, width } }: { boundaries: DOMRect }) => (
     <style>
         .__react-gt__highlight{'{'}
-        transform: translate({left - 10}px, {top - 10}px);width: {width + 20}px;height:{' '}
+        transform:translate({left - 10}px, {top - 10}px);width:{width + 20}px;height:
         {height + 20}px
         {'}'}
     </style>

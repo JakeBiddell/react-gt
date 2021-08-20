@@ -171,7 +171,6 @@ const styleCreator = (
                 [boxShadow]: '0 0 0 calc(200vh + 200vw) rgba(0, 0, 0, .8)',
                 [transition]: `transform ${speed}s ease, height ${speed}s ease, width ${speed}s ease`,
                 [zIndex]: 999997,
-                [position]: 'absolute',
             },
             'fade-in': {
                 [transition]: `${opacity} ${speed}s ease`,
