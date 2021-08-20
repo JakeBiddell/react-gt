@@ -20,10 +20,12 @@ type Props = Partial<ReactGTStep> & {
 
 const Styler = ({ boundaries }: { boundaries: DOMRect }) => {
     const modalContainer = $(`#__react-gt__modal-container`);
+    console.log({ boundaries });
     const position = useMemo(
         () => calculateModalPosition(boundaries, modalContainer?.clientHeight ?? 0),
         [boundaries],
     );
+    console.log({ boundaries, clientHeight: modalContainer?.clientHeight, position });
     return (
         <style>
             {styleObjectToStyleString({
