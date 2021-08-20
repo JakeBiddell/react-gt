@@ -1,10 +1,3 @@
-export type CRMTourContextValues = {
-    open: (atStep?: number) => void;
-    close: () => void;
-    isOpen: boolean;
-    steps: ReactGTStep[];
-};
-
 export type ReactGTStep = {
     content: ({ step }: { step: number }) => JSX.Element;
     selector: string;
@@ -50,6 +43,7 @@ export type DialogWrapperProps = {
     [key in keyof Omit<Overrides, 'dialogWrapper' | 'stepButton'>]: JSX.Element;
 } & {
     content: JSX.Element;
+    stepButtonComponent: (props: StepButtonProps) => JSX.Element;
 };
 
 export type Overrides = {

@@ -41,6 +41,14 @@ const ReactGT = ({
         onClose();
         setCurrentIndex(openAt);
     }, [onClose, openAt]);
+    const changeStep = useCallback(
+        (step: number) => {
+            if (step >= 0 && step < allSteps.length) {
+                setCurrentIndex(step);
+            }
+        },
+        [allSteps.length],
+    );
     if (!open) return null;
 
     return (
@@ -56,7 +64,7 @@ const ReactGT = ({
                 selector={steps[currentIndex].selector}
                 stepInteraction={steps[currentIndex].stepInteraction}
                 stepIndex={currentIndex}
-                changeStep={index => setCurrentIndex(index)}
+                changeStep={changeStep}
                 allSteps={allSteps}
                 close={close}
                 scrollIntoViewOptions={scrollIntoViewOptions}

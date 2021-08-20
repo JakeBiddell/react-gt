@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { useCallback } from 'react';
 import FadeIn from './FadeIn';
 import { ArrowDirections, Overrides } from './types';
 
@@ -31,16 +30,6 @@ const Modal = ({
     stepButton: StepButton,
 }: ModalProps) => {
     const arrow = useMemo(() => <Arrow direction={arrowDirection} />, [Arrow, arrowDirection]);
-    const goBack = useCallback(() => {
-        if (stepIndex > 0) {
-            changeStep(stepIndex - 1);
-        }
-    }, [changeStep, stepIndex]);
-    const goNext = useCallback(() => {
-        if (stepIndex < allSteps.length - 1) {
-            changeStep(stepIndex + 1);
-        }
-    }, [allSteps.length, changeStep, stepIndex]);
     const currentStepLabel = useMemo(
         () => <CurrentStepLabel currentStep={stepIndex} totalSteps={allSteps.length} />,
         [CurrentStepLabel, stepIndex, allSteps.length],
@@ -49,23 +38,23 @@ const Modal = ({
         () => (
             <NextStepButton
                 currentStep={stepIndex}
-                goNext={goNext}
+                goNext={() => changeStep(stepIndex + 1)}
                 skipTo={changeStep}
                 totalSteps={allSteps.length}
             />
         ),
-        [NextStepButton, stepIndex, goNext, changeStep, allSteps.length],
+        [stepIndex, changeStep, allSteps.length, NextStepButton],
     );
     const previousStepButton = useMemo(
         () => (
             <PreviousStepButton
                 currentStep={stepIndex}
-                goBack={goBack}
+                goBack={() => changeStep(stepIndex - 1)}
                 skipTo={changeStep}
                 totalSteps={allSteps.length}
             />
         ),
-        [PreviousStepButton, stepIndex, goBack, changeStep, allSteps.length],
+        [stepIndex, changeStep, allSteps.length, PreviousStepButton],
     );
     const stepButtonWrapper = useMemo(
         () => (
@@ -80,12 +69,12 @@ const Modal = ({
                 ))}
                 currentStep={stepIndex}
                 totalSteps={allSteps.length}
-                goNext={goNext}
-                goBack={goBack}
+                goNext={() => changeStep(stepIndex + 1)}
+                goBack={() => changeStep(stepIndex - 1)}
                 skipTo={changeStep}
             />
         ),
-        [StepButtonWrapper, allSteps, stepIndex, goNext, goBack, changeStep, StepButton],
+        [allSteps, stepIndex, changeStep, StepButton, StepButtonWrapper],
     );
     const closeButton = useMemo(() => <CloseButton close={close} />, [close, CloseButton]);
     return (
@@ -104,6 +93,7 @@ const Modal = ({
                             previousStepButton,
                             stepButtonWrapper,
                             stepIndex,
+                            stepButtonComponent: StepButton,
                         }}
                     />
                 </div>
