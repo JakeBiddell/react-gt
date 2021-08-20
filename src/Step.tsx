@@ -3,6 +3,9 @@ import { Overrides, ReactGTStep } from './types';
 import Highlight from './Highlight';
 import Modal from './Modal';
 import { useCallback } from 'react';
+import { styleObjectToStyleString } from './styles';
+import calculateModalPosition from './LIB/calculateModalPosition';
+import getArrowDirection from './LIB/getArrowDirection';
 
 const $ = (query: string) => document.querySelector(query);
 
@@ -15,14 +18,44 @@ type Props = Partial<ReactGTStep> & {
     overrides: Overrides;
 };
 
-const Styler = ({ boundaries: { top, left, height, width } }: { boundaries: DOMRect }) => (
-    <style>
-        .__react-gt__highlight{'{'}
-        transform:translate({left - 10}px, {top - 10}px);width:{width + 20}px;height:
-        {height + 20}px
-        {'}'}
-    </style>
-);
+const Styler = ({ boundaries }: { boundaries: DOMRect }) => {
+    const modalContainer = $(`#__react-gt__modal-container`);
+    const position = useMemo(
+        () => calculateModalPosition(boundaries, modalContainer?.clientHeight ?? 0),
+        [boundaries],
+    );
+    return (
+        <style>
+            {styleObjectToStyleString({
+                '.__react-gt__': {
+                    modal: {
+                        '-position': {
+                            transform: `translate(${
+                                position.right
+                                    ? `calc(${document.body.clientWidth - position.right}px - 100%)`
+                                    : `${position.left}px`
+                            }, ${
+                                position.bottom
+                                    ? `calc(${position.bottom}px - 100%)`
+                                    : `${position.top}px`
+                            })`,
+                            width: `${position.width}px`,
+                            height: `${position.height}px`,
+                        },
+                        '-content': {
+                            padding: `24px ${position.width / 11}px`,
+                            width: `${boundaries.width + 20}px`,
+                        },
+                    },
+                    Highlight: {
+                        transform: `translate(${boundaries.left - 10}px, ${boundaries.top - 10}px)`,
+                        height: `${boundaries.height + 20}px`,
+                    },
+                },
+            })}
+        </style>
+    );
+};
 
 const Step = React.memo(
     ({
@@ -71,13 +104,15 @@ const Step = React.memo(
                 window.removeEventListener('keydown', keyDownEventHandler);
             };
         }, [element]);
+
+        const arrowDirection = useMemo(() => getArrowDirection(boundaries), [boundaries]);
         return (
             <>
                 <Styler boundaries={boundaries} />
                 <Highlight />
                 <Modal
                     scrollToElement={scrollToElement}
-                    boundaries={boundaries}
+                    arrowDirection={arrowDirection}
                     renderedContent={renderedContent}
                     stepIndex={stepIndex}
                     changeStep={changeStep}

@@ -1,26 +1,9 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo } from 'react';
 import FadeIn from './FadeIn';
-import calculateModalPosition from './LIB/calculateModalPosition';
-import { styleObjectToStyleString } from './styles';
-import { Overrides } from './types';
-const getArrowDirection = ({
-    top,
-    left,
-    height,
-    width,
-}: DOMRect): 'up' | 'left' | 'down' | 'right' | null =>
-    top < -height
-        ? 'up'
-        : top > window.innerHeight - 10
-        ? 'down'
-        : left > window.innerWidth - 10
-        ? 'right'
-        : left < -width
-        ? 'left'
-        : null;
+import { ArrowDirections, Overrides } from './types';
 
 export type ModalProps = {
-    boundaries: DOMRect;
+    arrowDirection: ArrowDirections;
     stepIndex: number;
     changeStep: (index: number) => void;
     allSteps: number[];
@@ -31,7 +14,7 @@ export type ModalProps = {
 };
 
 const Modal = ({
-    boundaries,
+    arrowDirection,
     stepIndex,
     changeStep,
     allSteps,
@@ -47,15 +30,8 @@ const Modal = ({
         previousStepButton: PreviousStepButton,
         stepButtonWrapper: StepButtonWrapper,
         stepButton: StepButton,
-        ...overrides
     },
 }: ModalProps) => {
-    const ref = useRef(undefined as HTMLDivElement);
-    const position = useMemo(
-        () => calculateModalPosition(boundaries, ref?.current?.clientHeight ?? 0),
-        [boundaries],
-    );
-    const arrowDirection = useMemo(() => getArrowDirection(boundaries), [boundaries]);
     const arrow = useMemo(() => <Arrow direction={arrowDirection} />, [arrowDirection]);
     const currentStepLabel = useMemo(
         () => <CurrentStepLabel currentStep={stepIndex} totalSteps={allSteps.length} />,
@@ -104,76 +80,32 @@ const Modal = ({
         [allSteps, stepIndex, changeStep],
     );
     const closeButton = useMemo(() => <CloseButton close={close} />, [close]);
-    const modal = useMemo(
-        () => (
-            <div className="__react-gt__modal-z-index">
-                <FadeIn>
-                    <div className="__react-gt__modal-position">
-                        <div ref={ref} onClick={!!arrow ? scrollToElement : undefined}>
-                            <DialogWrapper
-                                {...{
-                                    allSteps,
-                                    arrow,
-                                    changeStep,
-                                    closeButton,
-                                    content,
-                                    currentStepLabel,
-                                    nextStepButton,
-                                    previousStepButton,
-                                    stepButtonWrapper,
-                                    stepIndex,
-                                }}
-                            />
-                        </div>
-                    </div>
-                </FadeIn>
-            </div>
-        ),
-        [
-            arrow,
-            scrollToElement,
-            allSteps,
-            arrow,
-            changeStep,
-            closeButton,
-            content,
-            currentStepLabel,
-            nextStepButton,
-            previousStepButton,
-            stepButtonWrapper,
-            stepIndex,
-        ],
-    );
     return (
-        <>
-            <style>
-                {styleObjectToStyleString({
-                    '.__react-gt__': {
-                        modal: {
-                            '-position': {
-                                transform: `translate(${
-                                    position.right
-                                        ? `calc(${
-                                              document.body.clientWidth - position.right
-                                          }px - 100%)`
-                                        : `${position.left}px`
-                                }, ${
-                                    position.bottom
-                                        ? `calc(${position.bottom}px - 100%)`
-                                        : `${position.top}px`
-                                })`,
-                                width: `${position.width}px`,
-                                height: `${position.height}px`,
-                            },
-                            '-content': {
-                                padding: `24px ${position.width / 11}px`,
-                            },
-                        },
-                    },
-                })}
-            </style>
-            {modal}
-        </>
+        <div className="__react-gt__modal-z-index">
+            <FadeIn>
+                <div className="__react-gt__modal-position">
+                    <div
+                        id="__react-gt__modal-container"
+                        onClick={!!arrow ? scrollToElement : undefined}
+                    >
+                        <DialogWrapper
+                            {...{
+                                allSteps,
+                                arrow,
+                                changeStep,
+                                closeButton,
+                                content,
+                                currentStepLabel,
+                                nextStepButton,
+                                previousStepButton,
+                                stepButtonWrapper,
+                                stepIndex,
+                            }}
+                        />
+                    </div>
+                </div>
+            </FadeIn>
+        </div>
     );
 };
 

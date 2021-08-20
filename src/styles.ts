@@ -167,6 +167,7 @@ const styleCreator = (
                 [justifyContent]: center,
                 [alignItems]: center,
                 [color]: 'white',
+                [cursor]: 'pointer',
             },
             highlight: {
                 left: 0,

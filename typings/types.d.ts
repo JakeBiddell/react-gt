@@ -27,6 +27,7 @@ export declare type Position = {
     width?: number;
     height?: number;
 };
+export declare type ArrowDirections = 'up' | 'left' | 'down' | 'right' | null;
 export declare type Overrides = {
     closeButton: typeof CloseButton;
     currentStepLabel: typeof CurrentStepLabel;
