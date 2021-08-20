@@ -18,12 +18,9 @@ type Props = Partial<ReactGTStep> & {
     overrides: Overrides;
 };
 
-const Styler = ({ boundaries }: { boundaries: DOMRect }) => {
+const Styler = React.memo(({ boundaries }: { boundaries: DOMRect }) => {
     const modalContainer = $(`#__react-gt__modal-container`);
-    const position = useMemo(
-        () => calculateModalPosition(boundaries, modalContainer?.clientHeight ?? 0),
-        [boundaries],
-    );
+    const position = calculateModalPosition(boundaries, modalContainer?.clientHeight ?? 0);
     return (
         <style>
             {styleObjectToStyleString({
@@ -55,7 +52,7 @@ const Styler = ({ boundaries }: { boundaries: DOMRect }) => {
             })}
         </style>
     );
-};
+});
 
 const Step = React.memo(
     ({

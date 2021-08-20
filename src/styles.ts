@@ -40,6 +40,9 @@ const styleCreator = (
     styleObjectToStyleString({
         '.__react-gt__': {
             [zIndex]: 999995,
+            position: 'fixed',
+            left: 0,
+            top: 0,
             dot: {
                 [cursor]: 'pointer',
                 [display]: 'contents',
