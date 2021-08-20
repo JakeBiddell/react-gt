@@ -1,6 +1,6 @@
 const getProps = (obj: Record<string, any>, selector: string) =>
     Object.entries(obj).reduce(
-        (acc, [key, val], index, array) =>
+        (acc, [key, val]) =>
             typeof val === 'object'
                 ? `${acc}}${selector}${key}{${getProps(val, `${selector}${key}`)}`
                 : `${acc}${key}:${val};`,
@@ -80,7 +80,7 @@ const styleCreator = (
                     [color]: '#e0e0e0',
                     [cursor]: 'default',
                 },
-                [':enabled:hover']: {
+                ':enabled:hover': {
                     [color]: '#212121',
                 },
             },

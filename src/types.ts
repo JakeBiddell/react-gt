@@ -1,12 +1,3 @@
-import Arrow from './Arrow';
-
-import CurrentStepLabel from './CurrentStepLabel';
-import DialogWrapper from './DialogWrapper';
-import NextStepButton from './NextStepButton';
-import PreviousStepButton from './PreviousStepButton';
-import StepButton from './StepButton';
-import StepButtonWrapper from './StepButtonWrapper';
-
 export type CRMTourContextValues = {
     open: (atStep?: number) => void;
     close: () => void;
