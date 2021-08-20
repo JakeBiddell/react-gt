@@ -44,7 +44,7 @@ export declare type StepButtonProps = {
     step: number;
     goToStep: () => void;
 };
-declare type StepButtonWrapperProps = {
+export declare type StepButtonWrapperProps = {
     stepButtons: JSX.Element[];
     currentStep: number;
     totalSteps: number;
@@ -55,7 +55,7 @@ declare type StepButtonWrapperProps = {
 export declare type ArrowProps = {
     direction: ArrowDirections;
 };
-declare type DialogWrapperProps = {
+export declare type DialogWrapperProps = {
     [key in keyof Omit<Overrides, 'dialogWrapper' | 'stepButton'>]: JSX.Element;
 } & {
     content: JSX.Element;
@@ -70,5 +70,4 @@ export declare type Overrides = {
     arrow: (props: ArrowProps) => JSX.Element;
     dialogWrapper: (props: DialogWrapperProps) => JSX.Element;
 };
-export {};
 //# sourceMappingURL=types.d.ts.map
