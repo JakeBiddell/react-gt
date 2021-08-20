@@ -81,31 +81,29 @@ const Modal = ({
     );
     const closeButton = useMemo(() => <CloseButton close={close} />, [close]);
     return (
-        <div className="__react-gt__modal-z-index">
-            <FadeIn>
-                <div className="__react-gt__modal-position">
-                    <div
-                        id="__react-gt__modal-container"
-                        onClick={!!arrow ? scrollToElement : undefined}
-                    >
-                        <DialogWrapper
-                            {...{
-                                allSteps,
-                                arrow,
-                                changeStep,
-                                closeButton,
-                                content,
-                                currentStepLabel,
-                                nextStepButton,
-                                previousStepButton,
-                                stepButtonWrapper,
-                                stepIndex,
-                            }}
-                        />
-                    </div>
+        <FadeIn>
+            <div className="__react-gt__modal-position">
+                <div
+                    id="__react-gt__modal-container"
+                    onClick={!!arrow ? scrollToElement : undefined}
+                >
+                    <DialogWrapper
+                        {...{
+                            allSteps,
+                            arrow,
+                            changeStep,
+                            closeButton,
+                            content,
+                            currentStepLabel,
+                            nextStepButton,
+                            previousStepButton,
+                            stepButtonWrapper,
+                            stepIndex,
+                        }}
+                    />
                 </div>
-            </FadeIn>
-        </div>
+            </div>
+        </FadeIn>
     );
 };
 
