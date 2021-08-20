@@ -109,7 +109,6 @@
                     "endOfLine": "auto"
                 }
             ],
-            "strict": true,
             "noUnusedLocals": true,
             "noUnusedParameters": true,
             "@typescript-eslint/no-unused-vars": 0,
