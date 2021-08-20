@@ -1,10 +1,13 @@
 import React from 'react';
-import { ReactGTStep } from './types';
-declare const _default: React.MemoExoticComponent<({ open, onClose, steps, openAt, }: {
+import { Overrides, ReactGTStep } from './types';
+declare type ReactGTProps = Partial<Overrides> & {
     open: boolean;
     onClose: () => void;
     openAt?: number;
     steps: ReactGTStep[];
-}) => JSX.Element>;
+    scrollIntoViewOptions?: ScrollIntoViewOptions;
+    transitionSpeed?: number;
+};
+declare const _default: React.MemoExoticComponent<({ open, onClose, steps, openAt, scrollIntoViewOptions, closeButton, currentStepLabel, nextStepButton, previousStepButton, stepButton, stepButtonWrapper, arrow, dialogWrapper, }: ReactGTProps) => JSX.Element>;
 export default _default;
 //# sourceMappingURL=ReactGT.d.ts.map

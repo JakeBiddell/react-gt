@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const FadeIn = ({
-    children,
-    style,
-    className,
-}: {
-    children?: JSX.Element;
-    style?: React.CSSProperties;
-    className?: string;
-}) => {
+const FadeIn = ({ children }: { children?: JSX.Element }) => {
     const [hidden, setHidden] = useState(true);
     useEffect(() => {
         setTimeout(() => {
@@ -16,16 +8,7 @@ const FadeIn = ({
         }, 0);
     }, []);
     return (
-        <div
-            className={className}
-            style={{
-                ...style,
-                transition: style?.transition
-                    ? `${style.transition}, opacity 0.4s ease`
-                    : `opacity 0.4s ease`,
-                opacity: hidden ? 0 : 1,
-            }}
-        >
+        <div className={`__react-gt__fade-in ${hidden ? '' : '__react-gt__fade-in-init'}`}>
             {children}
         </div>
     );

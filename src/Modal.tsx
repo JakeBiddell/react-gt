@@ -1,80 +1,102 @@
-import React, { useMemo, useRef } from 'react';
-import CloseButton from './CloseButton';
+import React, { useMemo } from 'react';
 import FadeIn from './FadeIn';
-import { DownArrow, LeftArrow, RightArrow, UpArrow } from './Icons';
-import calculateModalPosition from './LIB/calculateModalPosition';
-import PageNumber from './PageNumber';
-import PageSelector from './pageSelector';
-const getArrow = ({ top, left, height, width }: DOMRect) =>
-    top < -height ? (
-        <UpArrow />
-    ) : top > window.innerHeight - 10 ? (
-        <DownArrow />
-    ) : left > window.innerWidth - 10 ? (
-        <RightArrow />
-    ) : left < -width ? (
-        <LeftArrow />
-    ) : null;
+import { ArrowDirections, Overrides } from './types';
 
-const speed = '0.4';
+export type ModalProps = Overrides & {
+    arrowDirection: ArrowDirections;
+    stepIndex: number;
+    changeStep: (index: number) => void;
+    allSteps: number[];
+    close: () => void;
+    renderedContent: any;
+    scrollToElement: () => void;
+};
 
 const Modal = ({
-    boundaries,
+    arrowDirection,
     stepIndex,
     changeStep,
     allSteps,
     close,
-    renderedContent,
+    renderedContent: content,
     scrollToElement,
-}: {
-    boundaries: DOMRect;
-    stepIndex: number;
-    changeStep: (index: number) => void;
-    allSteps: number[];
-    close: (event: React.MouseEvent) => void;
-    renderedContent: any;
-    scrollToElement: () => void;
-}) => {
-    const ref = useRef(undefined as HTMLDivElement);
-    const content = useMemo(
+    arrow: Arrow,
+    closeButton: CloseButton,
+    currentStepLabel: CurrentStepLabel,
+    dialogWrapper: DialogWrapper,
+    nextStepButton: NextStepButton,
+    previousStepButton: PreviousStepButton,
+    stepButtonWrapper: StepButtonWrapper,
+    stepButton: StepButton,
+}: ModalProps) => {
+    const arrow = useMemo(() => <Arrow direction={arrowDirection} />, [Arrow, arrowDirection]);
+    const currentStepLabel = useMemo(
+        () => <CurrentStepLabel currentStep={stepIndex} totalSteps={allSteps.length} />,
+        [CurrentStepLabel, stepIndex, allSteps.length],
+    );
+    const nextStepButton = useMemo(
         () => (
-            <div ref={ref}>
-                {renderedContent}
-                <PageSelector stepIndex={stepIndex} changeStep={changeStep} allSteps={allSteps} />
-            </div>
+            <NextStepButton
+                currentStep={stepIndex}
+                goNext={() => changeStep(stepIndex + 1)}
+                skipTo={changeStep}
+                totalSteps={allSteps.length}
+            />
         ),
-        [allSteps, changeStep, renderedContent, stepIndex],
+        [stepIndex, changeStep, allSteps.length, NextStepButton],
     );
-    const position = useMemo(
-        () => calculateModalPosition(boundaries, (ref?.current?.clientHeight ?? 0) + 48),
-        [boundaries],
+    const previousStepButton = useMemo(
+        () => (
+            <PreviousStepButton
+                currentStep={stepIndex}
+                goBack={() => changeStep(stepIndex - 1)}
+                skipTo={changeStep}
+                totalSteps={allSteps.length}
+            />
+        ),
+        [stepIndex, changeStep, allSteps.length, PreviousStepButton],
     );
-    const arrow = useMemo(() => getArrow(boundaries), [boundaries]);
+    const stepButtonWrapper = useMemo(
+        () => (
+            <StepButtonWrapper
+                stepButtons={allSteps.map((x, index) => (
+                    <StepButton
+                        key={x}
+                        currentStep={stepIndex}
+                        step={index}
+                        goToStep={() => changeStep(index)}
+                    />
+                ))}
+                currentStep={stepIndex}
+                totalSteps={allSteps.length}
+                goNext={() => changeStep(stepIndex + 1)}
+                goBack={() => changeStep(stepIndex - 1)}
+                skipTo={changeStep}
+            />
+        ),
+        [allSteps, stepIndex, changeStep, StepButton, StepButtonWrapper],
+    );
+    const closeButton = useMemo(() => <CloseButton close={close} />, [close, CloseButton]);
     return (
-        <FadeIn
-            className="__react-gt__modal"
-            style={{
-                transition: `transform ${speed}s ease, height ${speed}s ease, width ${speed}s ease`,
-                transform: `translate(${
-                    position.right
-                        ? `calc(${document.body.clientWidth - position.right}px - 100%)`
-                        : `${position.left}px`
-                }, ${position.bottom ? `calc(${position.bottom}px - 100%)` : `${position.top}px`})`,
-                width: `${position.width}px`,
-                height: `${position.height}px`,
-            }}
-        >
-            <div
-                className="__react-gt__modal-content"
-                style={{
-                    padding: `24px ${position.width / 11}px`,
-                }}
-                onClick={!!arrow ? scrollToElement : undefined}
-            >
-                {!!arrow && <div className="__react-gt__arrow">{arrow}</div>}
-                <PageNumber selectedIndex={stepIndex} />
-                <CloseButton close={close} />
-                {content}
+        <FadeIn>
+            <div className="__react-gt__modal-position">
+                <div id="__react-gt__modal-container" onClick={arrow ? scrollToElement : undefined}>
+                    <DialogWrapper
+                        {...{
+                            allSteps,
+                            arrow,
+                            changeStep,
+                            closeButton,
+                            content,
+                            currentStepLabel,
+                            nextStepButton,
+                            previousStepButton,
+                            stepButtonWrapper,
+                            stepIndex,
+                            stepButtonComponent: StepButton,
+                        }}
+                    />
+                </div>
             </div>
         </FadeIn>
     );
