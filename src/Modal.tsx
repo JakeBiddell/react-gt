@@ -29,10 +29,10 @@ const Modal = ({
     stepButtonWrapper: StepButtonWrapper,
     stepButton: StepButton,
 }: ModalProps) => {
-    const arrow = useMemo(() => <Arrow direction={arrowDirection} />, [arrowDirection]);
+    const arrow = useMemo(() => <Arrow direction={arrowDirection} />, [Arrow, arrowDirection]);
     const currentStepLabel = useMemo(
         () => <CurrentStepLabel currentStep={stepIndex} totalSteps={allSteps.length} />,
-        [stepIndex, allSteps.length],
+        [CurrentStepLabel, stepIndex, allSteps.length],
     );
     const nextStepButton = useMemo(
         () => (
@@ -80,10 +80,7 @@ const Modal = ({
     return (
         <FadeIn>
             <div className="__react-gt__modal-position">
-                <div
-                    id="__react-gt__modal-container"
-                    onClick={!!arrow ? scrollToElement : undefined}
-                >
+                <div id="__react-gt__modal-container" onClick={arrow ? scrollToElement : undefined}>
                     <DialogWrapper
                         {...{
                             allSteps,

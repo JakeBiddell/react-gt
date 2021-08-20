@@ -1,8 +1,8 @@
 import React, { useMemo, useState, useEffect } from 'react';
+import { useCallback } from 'react';
 import { Overrides, ReactGTStep } from './types';
 import Highlight from './Highlight';
 import Modal from './Modal';
-import { useCallback } from 'react';
 import { styleObjectToStyleString } from './styles';
 import calculateModalPosition from './LIB/calculateModalPosition';
 import getArrowDirection from './LIB/getArrowDirection';
@@ -80,7 +80,7 @@ const Step = React.memo(
         const scrollToElement = useCallback(() => {
             element.scrollIntoView(scrollIntoViewOptions);
             adjustBoundaries();
-        }, [element]);
+        }, [adjustBoundaries, element, scrollIntoViewOptions]);
         const keyDownEventHandler = useCallback(
             (event: KeyboardEvent) => {
                 if (event.code === 'ArrowLeft' && stepIndex !== 0) {
@@ -107,7 +107,7 @@ const Step = React.memo(
                 window.removeEventListener('scroll', adjustBoundaries);
                 window.removeEventListener('keydown', keyDownEventHandler);
             };
-        }, [element]);
+        }, [adjustBoundaries, element, keyDownEventHandler, scrollToElement]);
 
         const arrowDirection = useMemo(() => getArrowDirection(boundaries), [boundaries]);
         return (

@@ -1,15 +1,7 @@
 import React from 'react';
+import { StepButtonWrapperProps } from './types';
 
-type Props = {
-    stepButtons: JSX.Element[];
-    currentStep: number;
-    totalSteps: number;
-    goNext: () => void;
-    goBack: () => void;
-    skipTo: (step: number) => void;
-};
-
-const StepButtonWrapper = ({ stepButtons }: Props) => (
+const StepButtonWrapper = ({ stepButtons }: StepButtonWrapperProps) => (
     <div className="__react-gt__dot-wrapper">{stepButtons}</div>
 );
 

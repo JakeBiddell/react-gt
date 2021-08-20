@@ -37,7 +37,7 @@ export type PreviousStepButtonProps = {
     skipTo: (step: number) => void;
 };
 export type StepButtonProps = { currentStep: number; step: number; goToStep: () => void };
-type StepButtonWrapperProps = {
+export type StepButtonWrapperProps = {
     stepButtons: JSX.Element[];
     currentStep: number;
     totalSteps: number;
@@ -46,7 +46,7 @@ type StepButtonWrapperProps = {
     skipTo: (step: number) => void;
 };
 export type ArrowProps = { direction: ArrowDirections };
-type DialogWrapperProps = {
+export type DialogWrapperProps = {
     [key in keyof Omit<Overrides, 'dialogWrapper' | 'stepButton'>]: JSX.Element;
 } & {
     content: JSX.Element;
