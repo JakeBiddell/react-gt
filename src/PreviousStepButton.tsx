@@ -1,14 +1,8 @@
 import React from 'react';
 import ChevronButton from './ChevronButton';
+import { PreviousStepButtonProps } from './types';
 
-type Props = {
-    currentStep: number;
-    totalSteps: number;
-    goBack: () => void;
-    skipTo: (step: number) => void;
-};
-
-const PreviousStepButton = ({ currentStep, goBack }: Props) => (
+const PreviousStepButton = ({ currentStep, goBack }: PreviousStepButtonProps) => (
     <ChevronButton direction={-1} disabled={currentStep === 0} onClick={goBack} />
 );
 

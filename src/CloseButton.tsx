@@ -1,7 +1,8 @@
 import React from 'react';
 import { Close } from './Icons';
+import { CloseButtonProps } from './types';
 
-const CloseButton = ({ close }: { close: () => void }) => (
+const CloseButton = ({ close }: CloseButtonProps) => (
     <button
         type="button"
         onClick={event => {

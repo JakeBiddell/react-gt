@@ -1,6 +1,5 @@
 import React from 'react';
-
-export type CurrentStepLabelProps = { currentStep: number; totalSteps: number };
+import { CurrentStepLabelProps } from './types';
 
 const CurrentStepLabel = ({ currentStep }: CurrentStepLabelProps) => (
     <div className="__react-gt__page-number">{currentStep + 1}</div>

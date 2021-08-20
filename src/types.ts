@@ -1,5 +1,5 @@
 import Arrow from './Arrow';
-import CloseButton from './CloseButton';
+
 import CurrentStepLabel from './CurrentStepLabel';
 import DialogWrapper from './DialogWrapper';
 import NextStepButton from './NextStepButton';
@@ -31,13 +31,43 @@ export type Position = {
 
 export type ArrowDirections = 'up' | 'left' | 'down' | 'right' | null;
 
+export type CloseButtonProps = { close: () => void };
+export type CurrentStepLabelProps = { currentStep: number; totalSteps: number };
+export type NextStepButtonProps = {
+    currentStep: number;
+    totalSteps: number;
+    goNext: () => void;
+    skipTo: (step: number) => void;
+};
+export type PreviousStepButtonProps = {
+    currentStep: number;
+    totalSteps: number;
+    goBack: () => void;
+    skipTo: (step: number) => void;
+};
+export type StepButtonProps = { currentStep: number; step: number; goToStep: () => void };
+type StepButtonWrapperProps = {
+    stepButtons: JSX.Element[];
+    currentStep: number;
+    totalSteps: number;
+    goNext: () => void;
+    goBack: () => void;
+    skipTo: (step: number) => void;
+};
+export type ArrowProps = { direction: ArrowDirections };
+type DialogWrapperProps = {
+    [key in keyof Omit<Overrides, 'dialogWrapper' | 'stepButton'>]: JSX.Element;
+} & {
+    content: JSX.Element;
+};
+
 export type Overrides = {
-    closeButton: typeof CloseButton;
-    currentStepLabel: typeof CurrentStepLabel;
-    nextStepButton: typeof NextStepButton;
-    previousStepButton: typeof PreviousStepButton;
-    stepButton: typeof StepButton;
-    stepButtonWrapper: typeof StepButtonWrapper;
-    arrow: typeof Arrow;
-    dialogWrapper: typeof DialogWrapper;
+    closeButton: (props: CloseButtonProps) => JSX.Element;
+    currentStepLabel: (props: CurrentStepLabelProps) => JSX.Element;
+    nextStepButton: (props: NextStepButtonProps) => JSX.Element;
+    previousStepButton: (props: PreviousStepButtonProps) => JSX.Element;
+    stepButton: (props: StepButtonProps) => JSX.Element;
+    stepButtonWrapper: (props: StepButtonWrapperProps) => JSX.Element;
+    arrow: (props: ArrowProps) => JSX.Element;
+    dialogWrapper: (props: DialogWrapperProps) => JSX.Element;
 };

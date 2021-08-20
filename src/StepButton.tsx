@@ -1,8 +1,7 @@
 import React from 'react';
+import { StepButtonProps } from './types';
 
-type Props = { currentStep: number; step: number; goToStep: () => void };
-
-const StepButton = ({ currentStep, step, goToStep }: Props) => (
+const StepButton = ({ currentStep, step, goToStep }: StepButtonProps) => (
     <button
         type="button"
         className={

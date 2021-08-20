@@ -52,21 +52,22 @@ const ReactGT = ({
             }
             <Step
                 {...steps[currentIndex]}
+                content={steps[currentIndex].content}
+                selector={steps[currentIndex].selector}
+                stepInteraction={steps[currentIndex].stepInteraction}
                 stepIndex={currentIndex}
                 changeStep={index => setCurrentIndex(index)}
                 allSteps={allSteps}
                 close={close}
                 scrollIntoViewOptions={scrollIntoViewOptions}
-                {...{
-                    closeButton,
-                    currentStepLabel,
-                    nextStepButton,
-                    previousStepButton,
-                    stepButton,
-                    stepButtonWrapper,
-                    arrow,
-                    dialogWrapper,
-                }}
+                closeButton={closeButton}
+                currentStepLabel={currentStepLabel}
+                nextStepButton={nextStepButton}
+                previousStepButton={previousStepButton}
+                stepButton={stepButton}
+                stepButtonWrapper={stepButtonWrapper}
+                arrow={arrow}
+                dialogWrapper={dialogWrapper}
             />
         </div>
     );
