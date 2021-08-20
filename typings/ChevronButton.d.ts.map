@@ -1,0 +1,1 @@
+{"version":3,"file":"ChevronButton.d.ts","sourceRoot":"","sources":["../src/ChevronButton.tsx"],"names":[],"mappings":"AAAA,OAAc,EAAE,iBAAiB,EAAE,MAAM,OAAO,CAAC;AAGjD,aAAK,UAAU,GAAG;IAAE,SAAS,EAAE,CAAC,CAAC,GAAG,CAAC,CAAC;IAAC,QAAQ,EAAE,OAAO,CAAC;IAAC,OAAO,EAAE,iBAAiB,CAAA;CAAE,CAAC;AACvF,QAAA,MAAM,aAAa,qCAAsC,UAAU,gBASlE,CAAC;AAEF,eAAe,aAAa,CAAC"}

@@ -1,19 +1,20 @@
 const getProps = (obj: Record<string, any>, selector: string) =>
     Object.entries(obj).reduce(
-        (acc, [key, val], index, array) =>
+        (acc, [key, val]) =>
             typeof val === 'object'
                 ? `${acc}}${selector}${key}{${getProps(val, `${selector}${key}`)}`
                 : `${acc}${key}:${val};`,
         '',
     );
 
-const styleObjectToStyleString = (obj: Record<string, any>) =>
+export const styleObjectToStyleString = (obj: Record<string, any>) =>
     Object.entries(obj).reduce((acc, [key, val]) => {
         const props = getProps(val, key);
         return `${acc}${key}{${props}${props[props.length - 1] != '}' ? '}' : ''}`;
     }, '');
 
 const styleCreator = (
+    speed = 0.4,
     primaryColor = '#00c19f',
     backgroundColor = 'background-color',
     border = 'border',
@@ -32,9 +33,16 @@ const styleCreator = (
     hover = ':hover',
     center = 'center',
     flex = 'flex',
+    transition = 'transition',
+    opacity = 'opacity',
+    overflow = 'overflow',
 ) =>
     styleObjectToStyleString({
         '.__react-gt__': {
+            [zIndex]: 999995,
+            position: 'fixed',
+            left: 0,
+            top: 0,
             dot: {
                 [cursor]: 'pointer',
                 [display]: 'contents',
@@ -47,7 +55,7 @@ const styleCreator = (
                     [border]: '1px solid #757575',
                     [borderRadius]: '50%',
                     'margin-right': '7px',
-                    overflow: 'hidden',
+                    [overflow]: 'hidden',
                 },
                 ':hover div': {
                     [backgroundColor]: '#757575',
@@ -72,7 +80,7 @@ const styleCreator = (
                     [color]: '#e0e0e0',
                     [cursor]: 'default',
                 },
-                [hover]: {
+                ':enabled:hover': {
                     [color]: '#212121',
                 },
             },
@@ -121,17 +129,20 @@ const styleCreator = (
                 top: '-10px',
             },
             modal: {
-                [maxWidth]: '330px',
-                'min-height': '48px',
-                [position]: 'fixed',
                 [backgroundColor]: '#fff',
-                left: 0,
-                top: 0,
                 [borderRadius]: '8px',
-                [zIndex]: 999999,
                 [boxShadow]: 'rgb(0 0 0 / 30%) 0px 0.5em 3em',
+                '-position': {
+                    [transition]: `transform ${speed}s ease, height ${speed}s ease, width ${speed}s ease`,
+                    left: 0,
+                    top: 0,
+                    [position]: 'fixed',
+                    [maxWidth]: '330px',
+                    'min-height': '48px',
+                    [zIndex]: 999999,
+                },
                 '-content': {
-                    overflow: 'hidden',
+                    [overflow]: 'hidden',
                     [height]: '100%',
                 },
             },
@@ -141,7 +152,7 @@ const styleCreator = (
                 [height]: '1em',
                 [display]: 'inline-block',
                 'font-size': '1.5rem',
-                transition: 'fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+                [transition]: 'fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
                 'flex-shrink': 0,
                 'user-select': 'none',
             },
@@ -157,7 +168,25 @@ const styleCreator = (
                 [justifyContent]: center,
                 [alignItems]: center,
                 [color]: 'white',
+                [cursor]: 'pointer',
+            },
+            highlight: {
+                left: 0,
+                right: 0,
+                [position]: 'fixed',
+                [borderRadius]: '8px',
+                [boxShadow]: '0 0 0 calc(200vh + 200vw) rgba(0, 0, 0, .8)',
+                [transition]: `transform ${speed}s ease, height ${speed}s ease, width ${speed}s ease`,
+                [zIndex]: 999997,
+            },
+            'fade-in': {
+                [transition]: `${opacity} ${speed}s ease`,
+                [opacity]: 0,
+                [zIndex]: 999997,
+                '-init': {
+                    [opacity]: 1,
+                },
             },
         },
     });
-export default styleCreator();
+export default styleCreator;

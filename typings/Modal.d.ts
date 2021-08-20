@@ -1,12 +1,14 @@
 import React from 'react';
-declare const _default: React.MemoExoticComponent<({ boundaries, stepIndex, changeStep, allSteps, close, renderedContent, scrollToElement, }: {
-    boundaries: DOMRect;
+import { ArrowDirections, Overrides } from './types';
+export declare type ModalProps = Overrides & {
+    arrowDirection: ArrowDirections;
     stepIndex: number;
     changeStep: (index: number) => void;
     allSteps: number[];
-    close: (event: React.MouseEvent<Element, MouseEvent>) => void;
+    close: () => void;
     renderedContent: any;
     scrollToElement: () => void;
-}) => JSX.Element>;
+};
+declare const _default: React.MemoExoticComponent<({ arrowDirection, stepIndex, changeStep, allSteps, close, renderedContent: content, scrollToElement, arrow: Arrow, closeButton: CloseButton, currentStepLabel: CurrentStepLabel, dialogWrapper: DialogWrapper, nextStepButton: NextStepButton, previousStepButton: PreviousStepButton, stepButtonWrapper: StepButtonWrapper, stepButton: StepButton, }: ModalProps) => JSX.Element>;
 export default _default;
 //# sourceMappingURL=Modal.d.ts.map

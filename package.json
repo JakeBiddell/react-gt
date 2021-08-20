@@ -1,5 +1,5 @@
 {
-    "name": "reactgt",
+    "name": "@utility-point/reactGT",
     "version": "0.1.21",
     "description": "",
     "main": "./build/index.js",
@@ -40,6 +40,7 @@
         "eslint-plugin-react-hooks": "^4.1.2",
         "eslint-plugin-testing-library": "^3.9.1",
         "eslint-plugin-unused-imports": "^0.1.3",
+        "eslint-plugin-flowtype": "^5.2.0",
         "ts-loader": "^7.0.1",
         "tsconfig-paths-webpack-plugin": "^3.2.0",
         "typescript": "^4.2.2",
@@ -50,10 +51,9 @@
         "source-map-loader": "^0.2.4",
         "jest": "^25.4.0",
         "@types/jest": "^25.2.1",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.1",
         "@types/react": "^17.0.0",
-        "@types/react-dom": "^17.0.0"
+        "@types/react-dom": "^17.0.0",
+        "prettier": "^2.0.4"
     },
     "lint-staged": {
         "src/**/!(*d.){js,jsx,ts,tsx,json,css,scss,md}": [
@@ -64,6 +64,9 @@
         "ignorePatterns": [
             "**/*.d.ts"
         ],
+        "globals": {
+            "JSX": true
+        },
         "extends": [
             "eslint:recommended",
             "plugin:jest/recommended",
@@ -125,8 +128,14 @@
             "@typescript-eslint/explicit-function-return-type": 0,
             "@typescript-eslint/explicit-module-boundary-types": 0,
             "no-unused-vars": "off",
+            "@typescript-eslint/no-unused-vars": 0,
             "unused-imports/no-unused-imports": 2,
-            "unused-imports/no-unused-vars": 1,
+            "no-nested-ternary": 0,
+            "@typescript-eslint/no-shadow": 0,
+            "@typescript-eslint/no-redeclare": 0,
+            "@typescript-eslint/no-loop-func": 0,
+            "jsx-a11y/click-events-have-key-events": 0,
+            "jsx-a11y/no-static-element-interactions": 0,
             "arrow-parens": [
                 "error",
                 "as-needed",

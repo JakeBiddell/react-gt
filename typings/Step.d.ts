@@ -1,10 +1,11 @@
 import React from 'react';
-import { ReactGTStep } from './types';
-declare type Props = Partial<ReactGTStep> & {
+import { Overrides, ReactGTStep } from './types';
+declare type Props = Partial<ReactGTStep> & Overrides & {
     stepIndex: number;
     changeStep: (index: number) => void;
     allSteps: number[];
-    close: (event: React.MouseEvent) => void;
+    close: () => void;
+    scrollIntoViewOptions: ScrollIntoViewOptions;
 };
 declare const _default: React.MemoExoticComponent<({ selector, content: Content, stepIndex, ...props }: Props) => JSX.Element>;
 export default _default;

@@ -1,19 +1,58 @@
 import React, { useMemo, useState, useEffect } from 'react';
-import { ReactGTStep } from './types';
+import { useCallback } from 'react';
+import { Overrides, ReactGTStep } from './types';
 import Highlight from './Highlight';
 import Modal from './Modal';
-import { useCallback } from 'react';
+import { styleObjectToStyleString } from './styles';
+import calculateModalPosition from './LIB/calculateModalPosition';
+import getArrowDirection from './LIB/getArrowDirection';
 
 const $ = (query: string) => document.querySelector(query);
 
-const scrollOptions = { behavior: 'smooth', block: 'center' } as ScrollIntoViewOptions;
+type Props = Partial<ReactGTStep> &
+    Overrides & {
+        stepIndex: number;
+        changeStep: (index: number) => void;
+        allSteps: number[];
+        close: () => void;
+        scrollIntoViewOptions: ScrollIntoViewOptions;
+    };
 
-type Props = Partial<ReactGTStep> & {
-    stepIndex: number;
-    changeStep: (index: number) => void;
-    allSteps: number[];
-    close: (event: React.MouseEvent) => void;
-};
+const Styler = React.memo(({ boundaries }: { boundaries: DOMRect }) => {
+    const modalContainer = $(`#__react-gt__modal-container`);
+    const position = calculateModalPosition(boundaries, modalContainer?.clientHeight ?? 0);
+    return (
+        <style>
+            {styleObjectToStyleString({
+                '.__react-gt__': {
+                    modal: {
+                        '-position': {
+                            transform: `translate(${
+                                position.right
+                                    ? `calc(${document.body.clientWidth - position.right}px - 100%)`
+                                    : `${position.left}px`
+                            }, ${
+                                position.bottom
+                                    ? `calc(${position.bottom}px - 100%)`
+                                    : `${position.top}px`
+                            })`,
+                            width: `${position.width}px`,
+                            height: `${position.height}px`,
+                        },
+                        '-content': {
+                            padding: `24px ${position.width / 11}px`,
+                        },
+                    },
+                    highlight: {
+                        transform: `translate(${boundaries.left - 10}px, ${boundaries.top - 10}px)`,
+                        height: `${boundaries.height + 20}px`,
+                        width: `${boundaries.width + 20}px`,
+                    },
+                },
+            })}
+        </style>
+    );
+});
 
 const Step = React.memo(
     ({
@@ -23,6 +62,15 @@ const Step = React.memo(
         allSteps,
         close,
         renderedContent,
+        scrollIntoViewOptions,
+        closeButton,
+        currentStepLabel,
+        nextStepButton,
+        previousStepButton,
+        stepButton,
+        stepButtonWrapper,
+        arrow,
+        dialogWrapper,
     }: Props & { element: Element; renderedContent: any }) => {
         const [boundaries, setBoundaries] = useState(() => element.getBoundingClientRect());
         const adjustBoundaries = useCallback(
@@ -30,9 +78,9 @@ const Step = React.memo(
             [element],
         );
         const scrollToElement = useCallback(() => {
-            element.scrollIntoView(scrollOptions);
+            element.scrollIntoView(scrollIntoViewOptions);
             adjustBoundaries();
-        }, [element]);
+        }, [adjustBoundaries, element, scrollIntoViewOptions]);
         const keyDownEventHandler = useCallback(
             (event: KeyboardEvent) => {
                 if (event.code === 'ArrowLeft' && stepIndex !== 0) {
@@ -59,18 +107,31 @@ const Step = React.memo(
                 window.removeEventListener('scroll', adjustBoundaries);
                 window.removeEventListener('keydown', keyDownEventHandler);
             };
-        }, [element]);
+        }, [adjustBoundaries, element, keyDownEventHandler, scrollToElement]);
+
+        const arrowDirection = useMemo(() => getArrowDirection(boundaries), [boundaries]);
         return (
             <>
-                <Highlight boundaries={boundaries} />
+                <Styler boundaries={boundaries} />
+                <Highlight />
                 <Modal
                     scrollToElement={scrollToElement}
-                    boundaries={boundaries}
+                    arrowDirection={arrowDirection}
                     renderedContent={renderedContent}
                     stepIndex={stepIndex}
                     changeStep={changeStep}
                     allSteps={allSteps}
                     close={close}
+                    {...{
+                        closeButton,
+                        currentStepLabel,
+                        nextStepButton,
+                        previousStepButton,
+                        stepButton,
+                        stepButtonWrapper,
+                        arrow,
+                        dialogWrapper,
+                    }}
                 />
             </>
         );
