@@ -138,6 +138,7 @@ const styleCreator = (
                     [position]: 'fixed',
                     [maxWidth]: '330px',
                     'min-height': '48px',
+                    [zIndex]: 999999,
                 },
                 '-content': {
                     [overflow]: 'hidden',
