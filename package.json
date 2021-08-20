@@ -52,7 +52,8 @@
         "jest": "^25.4.0",
         "@types/jest": "^25.2.1",
         "@types/react": "^17.0.0",
-        "@types/react-dom": "^17.0.0"
+        "@types/react-dom": "^17.0.0",
+        "prettier": "^2.0.4"
     },
     "lint-staged": {
         "src/**/!(*d.){js,jsx,ts,tsx,json,css,scss,md}": [
