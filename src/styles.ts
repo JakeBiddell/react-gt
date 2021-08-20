@@ -128,12 +128,14 @@ const styleCreator = (
                 [backgroundColor]: '#fff',
                 [borderRadius]: '8px',
                 [boxShadow]: 'rgb(0 0 0 / 30%) 0px 0.5em 3em',
+                '-z-index': {
+                    [zIndex]: 999999,
+                },
                 '-position': {
                     [transition]: `transform ${speed}s ease, height ${speed}s ease, width ${speed}s ease`,
                     left: 0,
                     top: 0,
                     [position]: 'fixed',
-                    [zIndex]: 999999,
                     [maxWidth]: '330px',
                     'min-height': '48px',
                 },

@@ -1,20 +1,23 @@
 import React, { useMemo, useRef } from 'react';
 import FadeIn from './FadeIn';
-import { DownArrow, LeftArrow, RightArrow, UpArrow } from './Icons';
 import calculateModalPosition from './LIB/calculateModalPosition';
-import PageSelector from './pageSelector';
 import { styleObjectToStyleString } from './styles';
 import { Overrides } from './types';
-const getArrow = ({ top, left, height, width }: DOMRect) =>
-    top < -height ? (
-        <UpArrow />
-    ) : top > window.innerHeight - 10 ? (
-        <DownArrow />
-    ) : left > window.innerWidth - 10 ? (
-        <RightArrow />
-    ) : left < -width ? (
-        <LeftArrow />
-    ) : null;
+const getArrowDirection = ({
+    top,
+    left,
+    height,
+    width,
+}: DOMRect): 'up' | 'left' | 'down' | 'right' | null =>
+    top < -height
+        ? 'up'
+        : top > window.innerHeight - 10
+        ? 'down'
+        : left > window.innerWidth - 10
+        ? 'right'
+        : left < -width
+        ? 'left'
+        : null;
 
 export type ModalProps = {
     boundaries: DOMRect;
@@ -33,52 +36,113 @@ const Modal = ({
     changeStep,
     allSteps,
     close,
-    renderedContent,
+    renderedContent: content,
     scrollToElement,
-    overrides: { closeButton: CloseButton, currentStepLabel: CurrentStepLabel, ...overrides },
+    overrides: {
+        arrow: Arrow,
+        closeButton: CloseButton,
+        currentStepLabel: CurrentStepLabel,
+        dialogWrapper: DialogWrapper,
+        nextStepButton: NextStepButton,
+        previousStepButton: PreviousStepButton,
+        stepButtonWrapper: StepButtonWrapper,
+        stepButton: StepButton,
+        ...overrides
+    },
 }: ModalProps) => {
     const ref = useRef(undefined as HTMLDivElement);
-    const content = useMemo(
-        () => (
-            <div>
-                {renderedContent}
-                <PageSelector
-                    stepIndex={stepIndex}
-                    changeStep={changeStep}
-                    allSteps={allSteps}
-                    overrides={overrides}
-                />
-            </div>
-        ),
-        [allSteps, changeStep, renderedContent, stepIndex],
-    );
     const position = useMemo(
         () => calculateModalPosition(boundaries, (ref?.current?.clientHeight ?? 0) + 48),
         [boundaries],
     );
-    const arrow = useMemo(() => getArrow(boundaries), [boundaries]);
+    const arrowDirection = useMemo(() => getArrowDirection(boundaries), [boundaries]);
+    const arrow = useMemo(() => <Arrow direction={arrowDirection} />, [arrowDirection]);
+    const currentStepLabel = useMemo(
+        () => <CurrentStepLabel currentStep={stepIndex} totalSteps={allSteps.length} />,
+        [stepIndex, allSteps.length],
+    );
+    const nextStepButton = useMemo(
+        () => (
+            <NextStepButton
+                currentStep={stepIndex}
+                goNext={() => changeStep(stepIndex + 1)}
+                skipTo={changeStep}
+                totalSteps={allSteps.length}
+            />
+        ),
+        [stepIndex, changeStep, allSteps.length],
+    );
+    const previousStepButton = useMemo(
+        () => (
+            <PreviousStepButton
+                currentStep={stepIndex}
+                goBack={() => changeStep(stepIndex - 1)}
+                skipTo={changeStep}
+                totalSteps={allSteps.length}
+            />
+        ),
+        [stepIndex, changeStep, allSteps.length],
+    );
+    const stepButtonWrapper = useMemo(
+        () => (
+            <StepButtonWrapper
+                stepButtons={allSteps.map((x, index) => (
+                    <StepButton
+                        key={x}
+                        currentStep={stepIndex}
+                        step={index}
+                        goToStep={() => changeStep(index)}
+                    />
+                ))}
+                currentStep={stepIndex}
+                totalSteps={allSteps.length}
+                goNext={() => changeStep(stepIndex + 1)}
+                goBack={() => changeStep(stepIndex - 1)}
+                skipTo={changeStep}
+            />
+        ),
+        [allSteps, stepIndex, changeStep],
+    );
+    const closeButton = useMemo(() => <CloseButton close={close} />, [close]);
     const modal = useMemo(
         () => (
-            <FadeIn>
-                <div className="__react-gt__modal-position">
-                    <div className="__react-gt__modal" ref={ref}>
-                        <div
-                            className="__react-gt__modal-content"
-                            onClick={!!arrow ? scrollToElement : undefined}
-                        >
-                            {!!arrow && <div className="__react-gt__arrow">{arrow}</div>}
-                            <CurrentStepLabel
-                                currentStep={stepIndex}
-                                totalSteps={allSteps.length}
+            <div className="__react-gt__modal-z-index">
+                <FadeIn>
+                    <div className="__react-gt__modal-position">
+                        <div ref={ref} onClick={!!arrow ? scrollToElement : undefined}>
+                            <DialogWrapper
+                                {...{
+                                    allSteps,
+                                    arrow,
+                                    changeStep,
+                                    closeButton,
+                                    content,
+                                    currentStepLabel,
+                                    nextStepButton,
+                                    previousStepButton,
+                                    stepButtonWrapper,
+                                    stepIndex,
+                                }}
                             />
-                            <CloseButton close={close} />
-                            {content}
                         </div>
                     </div>
-                </div>
-            </FadeIn>
+                </FadeIn>
+            </div>
         ),
-        [arrow, content, scrollToElement, close],
+        [
+            arrow,
+            scrollToElement,
+            allSteps,
+            arrow,
+            changeStep,
+            closeButton,
+            content,
+            currentStepLabel,
+            nextStepButton,
+            previousStepButton,
+            stepButtonWrapper,
+            stepIndex,
+        ],
     );
     return (
         <>

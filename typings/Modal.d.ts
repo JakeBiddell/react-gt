@@ -10,6 +10,6 @@ export declare type ModalProps = {
     scrollToElement: () => void;
     overrides: Overrides;
 };
-declare const _default: React.MemoExoticComponent<({ boundaries, stepIndex, changeStep, allSteps, close, renderedContent, scrollToElement, overrides: { closeButton: CloseButton, currentStepLabel: CurrentStepLabel, ...overrides }, }: ModalProps) => JSX.Element>;
+declare const _default: React.MemoExoticComponent<({ boundaries, stepIndex, changeStep, allSteps, close, renderedContent: content, scrollToElement, overrides: { arrow: Arrow, closeButton: CloseButton, currentStepLabel: CurrentStepLabel, dialogWrapper: DialogWrapper, nextStepButton: NextStepButton, previousStepButton: PreviousStepButton, stepButtonWrapper: StepButtonWrapper, stepButton: StepButton, ...overrides }, }: ModalProps) => JSX.Element>;
 export default _default;
 //# sourceMappingURL=Modal.d.ts.map

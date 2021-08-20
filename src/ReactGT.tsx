@@ -1,6 +1,8 @@
 import React, { useMemo, useCallback, useState } from 'react';
+import Arrow from './Arrow';
 import CloseButton from './CloseButton';
 import CurrentStepLabel from './CurrentStepLabel';
+import DialogWrapper from './DialogWrapper';
 import NextStepButton from './NextStepButton';
 import PreviousStepButton from './PreviousStepButton';
 import Step from './Step';
@@ -56,6 +58,8 @@ const ReactGT = ({
                     previousStepButton: overrides?.previousStepButton ?? PreviousStepButton,
                     stepButton: overrides?.stepButton ?? StepButton,
                     stepButtonWrapper: overrides?.stepButtonWrapper ?? StepButtonWrapper,
+                    arrow: overrides?.arrow ?? Arrow,
+                    dialogWrapper: overrides?.dialogWrapper ?? DialogWrapper,
                 }}
             />
         </>

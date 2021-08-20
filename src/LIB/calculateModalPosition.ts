@@ -54,13 +54,13 @@ const calculateModalPosition = (
         horizontalAlign();
     }
     // Add modal above element if top margin is bigger than the bottom margin and there is enough space
-    else if (topMargin > bottomMargin && topMargin > modalHeight + 20) {
+    else if (topMargin > bottomMargin && topMargin > modalHeight) {
         // align bottom of modal with top of element
         result.bottom = top - 20;
         vertialAlign();
     }
     // Add modal under element if there is enough space
-    else if (bottomMargin > modalHeight + 20) {
+    else if (bottomMargin > modalHeight) {
         // align top of result with bottom of element
         result.top = top + height + 20;
         vertialAlign();

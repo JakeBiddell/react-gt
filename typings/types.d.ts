@@ -1,5 +1,7 @@
+import Arrow from './Arrow';
 import CloseButton from './CloseButton';
 import CurrentStepLabel from './CurrentStepLabel';
+import DialogWrapper from './DialogWrapper';
 import NextStepButton from './NextStepButton';
 import PreviousStepButton from './PreviousStepButton';
 import StepButton from './StepButton';
@@ -32,5 +34,7 @@ export declare type Overrides = {
     previousStepButton: typeof PreviousStepButton;
     stepButton: typeof StepButton;
     stepButtonWrapper: typeof StepButtonWrapper;
+    arrow: typeof Arrow;
+    dialogWrapper: typeof DialogWrapper;
 };
 //# sourceMappingURL=types.d.ts.map
