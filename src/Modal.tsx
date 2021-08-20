@@ -3,6 +3,7 @@ import FadeIn from './FadeIn';
 import { DownArrow, LeftArrow, RightArrow, UpArrow } from './Icons';
 import calculateModalPosition from './LIB/calculateModalPosition';
 import PageSelector from './pageSelector';
+import { styleObjectToStyleString } from './styles';
 import { Overrides } from './types';
 const getArrow = ({ top, left, height, width }: DOMRect) =>
     top < -height ? (
@@ -57,31 +58,41 @@ const Modal = ({
     );
     const arrow = useMemo(() => getArrow(boundaries), [boundaries]);
     return (
-        <FadeIn
-            className="__react-gt__modal"
-            style={{
-                transform: `translate(${
-                    position.right
-                        ? `calc(${document.body.clientWidth - position.right}px - 100%)`
-                        : `${position.left}px`
-                }, ${position.bottom ? `calc(${position.bottom}px - 100%)` : `${position.top}px`})`,
-                width: `${position.width}px`,
-                height: `${position.height}px`,
-            }}
-        >
-            <div
-                className="__react-gt__modal-content"
-                style={{
-                    padding: `24px ${position.width / 11}px`,
-                }}
-                onClick={!!arrow ? scrollToElement : undefined}
-            >
-                {!!arrow && <div className="__react-gt__arrow">{arrow}</div>}
-                <CurrentStepLabel currentStep={stepIndex} totalSteps={allSteps.length} />
-                <CloseButton close={close} />
-                {content}
-            </div>
-        </FadeIn>
+        <>
+            <style>
+                {styleObjectToStyleString({
+                    '.__react-gt__': {
+                        modal: {
+                            transform: `translate(${
+                                position.right
+                                    ? `calc(${document.body.clientWidth - position.right}px - 100%)`
+                                    : `${position.left}px`
+                            }, ${
+                                position.bottom
+                                    ? `calc(${position.bottom}px - 100%)`
+                                    : `${position.top}px`
+                            })`,
+                            width: `${position.width}px`,
+                            height: `${position.height}px`,
+                            '-content': {
+                                padding: `24px ${position.width / 11}px`,
+                            },
+                        },
+                    },
+                })}
+            </style>
+            <FadeIn className="__react-gt__modal">
+                <div
+                    className="__react-gt__modal-content"
+                    onClick={!!arrow ? scrollToElement : undefined}
+                >
+                    {!!arrow && <div className="__react-gt__arrow">{arrow}</div>}
+                    <CurrentStepLabel currentStep={stepIndex} totalSteps={allSteps.length} />
+                    <CloseButton close={close} />
+                    {content}
+                </div>
+            </FadeIn>
+        </>
     );
 };
 

@@ -7,7 +7,7 @@ const getProps = (obj: Record<string, any>, selector: string) =>
         '',
     );
 
-const styleObjectToStyleString = (obj: Record<string, any>) =>
+export const styleObjectToStyleString = (obj: Record<string, any>) =>
     Object.entries(obj).reduce((acc, [key, val]) => {
         const props = getProps(val, key);
         return `${acc}${key}{${props}${props[props.length - 1] != '}' ? '}' : ''}`;
@@ -76,7 +76,7 @@ const styleCreator = (
                     [color]: '#e0e0e0',
                     [cursor]: 'default',
                 },
-                [hover]: {
+                [':enabled:hover']: {
                     [color]: '#212121',
                 },
             },

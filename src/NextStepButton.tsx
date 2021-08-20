@@ -8,8 +8,8 @@ type Props = {
     skipTo: (step: number) => void;
 };
 
-const NextStepButton = ({ currentStep, goNext }: Props) => (
-    <ChevronButton direction={1} disabled={currentStep === 0} onClick={goNext} />
+const NextStepButton = ({ currentStep, totalSteps, goNext }: Props) => (
+    <ChevronButton direction={1} disabled={currentStep === totalSteps - 1} onClick={goNext} />
 );
 
 export default NextStepButton;

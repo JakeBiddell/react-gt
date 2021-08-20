@@ -4,6 +4,6 @@ declare type Props = {
     goNext: () => void;
     skipTo: (step: number) => void;
 };
-declare const NextStepButton: ({ currentStep, goNext }: Props) => JSX.Element;
+declare const NextStepButton: ({ currentStep, totalSteps, goNext }: Props) => JSX.Element;
 export default NextStepButton;
 //# sourceMappingURL=NextStepButton.d.ts.map
